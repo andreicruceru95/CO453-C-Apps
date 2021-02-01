@@ -141,7 +141,7 @@ namespace ConsoleAppProject.App01
                 case 4:
                     return "miles";
                 default:
-                    return "no unit";
+                    return "(no unit selected)";
             }
         }
 
