@@ -20,6 +20,7 @@ namespace ConsoleAppProject.App01
         public const double KILOMETERS_IN_MILES = 0.621371;
         public const double MILES_IN_MILES = 1;
         public const double NO_UNIT_IN_MILES = 1;
+        public const int ROUND_DECIMALS = 3;
 
         /// <summary>
         /// Run the program in steps.
@@ -37,7 +38,7 @@ namespace ConsoleAppProject.App01
             PrintHeading();
 
             Console.WriteLine("\t" + amount + " " + TranslateUnit(valueToBeConverted)  +
-                            " translates to " + result + " " + TranslateUnit(valueToConvertTo));
+                            " translates to " + Math.Round(result, ROUND_DECIMALS) + " " + TranslateUnit(valueToConvertTo));
 
         }
         /// <summary>
