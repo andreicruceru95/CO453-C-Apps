@@ -4,6 +4,11 @@ namespace ConsoleAppProject.App01
     /// <summary>
     /// This application will read integer type values from the user
     /// and convert it to a chosen unit value.
+    /// In order to convert any unit type to any unit type 
+    /// this program will convert all the units to a common unit and will calculate
+    /// the result.
+    /// In mathematical terms, if x = amount, a = unit to convert, b = unit to convert to and c = common unit,
+    /// then x * a = b is the same as x * a * c = b * c.
     /// </summary>
     /// <author>
     /// Andrei Cruceru version 0.1
@@ -110,6 +115,11 @@ namespace ConsoleAppProject.App01
             }
         }
 
+        /// <summary>
+        /// Translate the unit from int data type to string data type.
+        /// </summary>
+        /// <param name="unitNumber">The input integer of the user.</param>
+        /// <returns>The respresentation of the integer in String type.</returns>
         private String TranslateUnit(int unitNumber)
         {
             switch(unitNumber)
