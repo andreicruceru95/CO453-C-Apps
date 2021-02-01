@@ -11,7 +11,7 @@ namespace ConsoleAppProject.App01
     /// then x * a = b is the same as x * a * c = b * c.
     /// </summary>
     /// <author>
-    /// Andrei Cruceru version 0.1
+    /// Andrei Cruceru version 0.6
     /// </author>
     public class DistanceConverter
     {
@@ -28,14 +28,15 @@ namespace ConsoleAppProject.App01
         public void RunDistanceConverter()
         {
             PrintHeading();
-            int valueToBeConverted = SelectMainUnit();
-            int valueToConvertTo = SelectConversionUnit();
-            double amount = ReadAmount();
+            int valueToBeConverted = Math.Abs(SelectMainUnit());
+            int valueToConvertTo = Math.Abs(SelectConversionUnit());
+            double amount = Math.Abs(ReadAmount());
 
             double result =(ConvertUnit(valueToBeConverted) / ConvertUnit(valueToConvertTo)) * amount;
 
             Console.Clear();
             PrintHeading();
+            Console.Beep();
 
             Console.WriteLine("\t" + amount + " " + TranslateUnit(valueToBeConverted)  +
                             " translates to " + Math.Round(result, ROUND_DECIMALS) + " " + TranslateUnit(valueToConvertTo));
@@ -46,10 +47,10 @@ namespace ConsoleAppProject.App01
         /// </summary>
         private void PrintHeading()
         {
-            Console.WriteLine("----------------------------\n");
-            Console.WriteLine("     Distance converter     \n");
-            Console.WriteLine("   App by Andrei Cruceru    \n");
-            Console.WriteLine("----------------------------\n");
+            Console.WriteLine("\t\t----------------------------\n");
+            Console.WriteLine("\t\t     Distance converter     \n");
+            Console.WriteLine("\t\t   App by Andrei Cruceru    \n");
+            Console.WriteLine("\t\t----------------------------\n");
         }
         /// <summary>
         /// Ask the user for an unit input.
