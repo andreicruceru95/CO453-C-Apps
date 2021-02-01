@@ -1,4 +1,5 @@
-﻿namespace ConsoleAppProject.App01
+﻿using System;
+namespace ConsoleAppProject.App01
 {
     /// <summary>
     /// This application will read integer type values from the user
@@ -9,63 +10,90 @@
     /// </author>
     public class DistanceConverter
     {
-        /*f
-                Print a heading.
-        */
-        public void PrintHeading()
+        /// <summary>
+        /// Run the program in steps.
+        /// </summary>
+        public void RunDistanceConverter()
         {
-            System.Console.WriteLine ("\tDistance Converter\n\tAuthor: Andrei Cruceru\n");
+            PrintHeading();
+            int valueToBeConverted = SelectMainUnit();
+            int valueToConvertTo = SelectConversionUnit();
+            double amount = ReadAmount();
+
+            double result =(ConvertUnit(valueToBeConverted) / ConvertUnit(valueToConvertTo)) * amount;
+
+            Console.Clear();
+            PrintHeading();
+
+            Console.WriteLine("\t" + amount + " " + TranslateUnit(valueToBeConverted)  +
+                            " translates to " + result + " " + TranslateUnit(valueToConvertTo));
+
         }
-        /*
-        Print a message that asks the user for input
-        */
+        /// <summary>
+        ///  Print a heading with app and author name.
+        /// </summary>
+        private void PrintHeading()
+        {
+            Console.WriteLine("----------------------------\n");
+            Console.WriteLine("     Distance converter     \n");
+            Console.WriteLine("   App by Andrei Cruceru    \n");
+            Console.WriteLine("----------------------------\n");
+        }
+        /// <summary>
+        /// Ask the user for an unit input.
+        /// </summary>        
         public int SelectMainUnit()
         {
-            System.Console.WriteLine("\tPlease enter your choice: \n"); 
+            Console.WriteLine("\tPlease enter the number associated with the distance unit you want to convert: \n");
 
             PrintUnitList();   
 
-            return int.Parse(System.Console.ReadLine());  
-        }        
+            return int.Parse(Console.ReadLine());  
+        }
 
-        /*
-        Print a message that asks the user for a conversion unit.
-        */
-        public int SelectConversionUnit()
+        /// <summary>
+        /// Ask the user to input a conversion unit.
+        /// </summary>
+        private int SelectConversionUnit()
         {
-            System.Console.WriteLine("\tPlease chose distance unit to convert to: \n");
+            Console.WriteLine("\tPlease enter the number asociated with the distance unit to convert to: \n");
 
             PrintUnitList();
 
-            return int.Parse(System.Console.ReadLine());
+            return int.Parse(Console.ReadLine());
             
         }
 
-        /*
-        Print a list of distance unit options.
-        */
-        public void PrintUnitList()
+        /// <summary>
+        /// Print a list of distance unit options.
+        /// </summary>
+        private void PrintUnitList()
         {
-            System.Console.WriteLine("\t1: " + DistanceUnits.Feet +
-                        "\n\t2: " + DistanceUnits.Metres + "\n\t3: " + DistanceUnits.Kilometres + 
-                        "\n\t4: " + DistanceUnits.Miles + "\n" + "\n\t5" + DistanceUnits.NoUnit);
+            Console.WriteLine("\t1." + DistanceUnits.Feet + "\n");
+            Console.WriteLine("\t2." + DistanceUnits.Metres + "\n");
+            Console.WriteLine("\t3." + DistanceUnits.Kilometres + "\n");
+            Console.WriteLine("\t4." + DistanceUnits.Miles + "\n");
+            Console.WriteLine("\t5." + DistanceUnits.NoUnit + "\n");
         }
 
-        /*
-        Recieve the conversion amount from the user.
-        */
-        public int ReadAmount()
+        /// <summary>
+        /// Ask the user for an amount that need to be converted.
+        /// </summary>
+        /// <returns></returns>
+        private double ReadAmount()
         {
-            System.Console.WriteLine("\n\tPlease select amount!");
+            Console.WriteLine("\n\tPlease select amount!");
             
-            return int.Parse(System.Console.ReadLine()); 
+            return double.Parse(Console.ReadLine()); 
 
         }
 
-        /*
-        Convert units.
-        */
-        public double ConvertUnits(int choice)
+        /// <summary>
+        /// Return the value of each unit in miles.
+        /// </summary>
+        /// <param name="choice">Represents the user's input.</param>
+        /// <returns>Return the value of the input in miles.</returns>
+        private double ConvertUnit(int choice)
         {
             switch(choice)
             {
@@ -79,6 +107,23 @@
                     return 1;
                 default:
                     return 1; 
+            }
+        }
+
+        private String TranslateUnit(int unitNumber)
+        {
+            switch(unitNumber)
+            {
+                case 1:
+                    return "feet";
+                case 2:
+                    return "meters";
+                case 3:
+                    return "kilometers";
+                case 4:
+                    return "miles";
+                default:
+                    return "no unit";
             }
         }
 

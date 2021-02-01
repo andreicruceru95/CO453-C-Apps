@@ -22,15 +22,7 @@ namespace ConsoleAppProject
 
             DistanceConverter converter = new DistanceConverter();
 
-            converter.PrintHeading();
-
-            int mainUnit = converter.SelectMainUnit();
-            int conversionUnit =  converter.SelectConversionUnit();
-            int amount = converter.ReadAmount();
-
-            int result = amount * (mainUnit / conversionUnit);
-
-            Console.WriteLine("\n\tThe result is: " + result);
+            converter.RunDistanceConverter();
         }
         
     }
