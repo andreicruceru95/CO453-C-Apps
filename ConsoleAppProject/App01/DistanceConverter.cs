@@ -15,6 +15,12 @@ namespace ConsoleAppProject.App01
     /// </author>
     public class DistanceConverter
     {
+        public const double FEET_IN_MILES = 0.000189394;
+        public const double METERS_IN_MILES = 0.000621371;
+        public const double KILOMETERS_IN_MILES = 0.621371;
+        public const double MILES_IN_MILES = 1;
+        public const double NO_UNIT_IN_MILES = 1;
+
         /// <summary>
         /// Run the program in steps.
         /// </summary>
@@ -102,16 +108,16 @@ namespace ConsoleAppProject.App01
         {
             switch(choice)
             {
-                case 1: 
-                     return 0.000189394;
+                case 1:
+                    return FEET_IN_MILES;
                 case 2:
-                     return 0.000621371;
+                    return METERS_IN_MILES;
                 case 3:
-                    return 0.621371;
+                    return KILOMETERS_IN_MILES;
                 case 4:
-                    return 1;
+                    return MILES_IN_MILES;
                 default:
-                    return 1; 
+                    return NO_UNIT_IN_MILES;
             }
         }
 
