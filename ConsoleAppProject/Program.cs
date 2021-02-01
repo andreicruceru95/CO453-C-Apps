@@ -1,4 +1,5 @@
-﻿using System;
+using ConsoleAppProject.App01;
+using System;
 
 namespace ConsoleAppProject
 {
@@ -8,7 +9,7 @@ namespace ConsoleAppProject
     /// to start Apps 01 to 05 for CO453 CW1
     /// 
     /// This Project has been modified by:
-    /// Derek Peacock 14/12/2020
+    /// Andrei Cruceru 30/01/2021
     /// </summary>
     public static class Program
     {
@@ -18,9 +19,19 @@ namespace ConsoleAppProject
             
             Console.WriteLine("BNU CO453 Applications Programming 2020-2021!");
             Console.WriteLine();
-            Console.Beep();
 
+            DistanceConverter converter = new DistanceConverter();
 
+            converter.PrintHeading();
+
+            int mainUnit = converter.SelectMainUnit();
+            int conversionUnit =  converter.SelectConversionUnit();
+            int amount = converter.ReadAmount();
+
+            int result = amount * (mainUnit / conversionUnit);
+
+            Console.WriteLine("\n\tThe result is: " + result);
         }
+        
     }
 }
