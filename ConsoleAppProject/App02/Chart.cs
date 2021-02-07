@@ -70,13 +70,11 @@ namespace ConsoleAppProject.App02
                 /**
                  * Check if the closest height value on the chart to the user's height.
                  */
-                if (((i > MIN_ROW) && Height < Convert.ToDouble(BmiChart[i, 1])))
+                if (((i > MIN_ROW + 1) && Height <= Convert.ToDouble(BmiChart[i, 1])))
                 {
                     RowCount++;
 
-                    HeightOnChart = Calculator.GetClosest(Convert.ToInt32(BmiChart[i - 1, 1]), Convert.ToInt32(BmiChart[i, 1]), Height);
-
-                    if (HeightOnChart == 0)
+                    if (Calculator.GetClosest(Convert.ToInt32(BmiChart[i - 1, 1]), Convert.ToInt32(BmiChart[i, 1]), Height) == 0)
                     {
 
                         HeightOnChart = i - (RowCount);
@@ -103,13 +101,11 @@ namespace ConsoleAppProject.App02
                 /**
                 * Check if the closest weight value on the chart to the user's weight.
                 */
-                if (((j > MIN_COL) && Weight < Convert.ToInt32(BmiChart[1, j])))
+                if (((j > MIN_COL) && Weight <= Convert.ToInt32(BmiChart[1, j])))
                 {
                     ColCount++;
 
-                    WeightOnChart = Calculator.GetClosest(Convert.ToInt32(BmiChart[1, j - 1]), Convert.ToInt32(BmiChart[1, j]), Weight);
-
-                    if (WeightOnChart == 0)
+                    if (Calculator.GetClosest(Convert.ToInt32(BmiChart[1, j - 1]), Convert.ToInt32(BmiChart[1, j]), Weight) == 0)
                     {
                         WeightOnChart = j - (ColCount);
                     }
@@ -137,14 +133,10 @@ namespace ConsoleAppProject.App02
                     /**
                      * Change the text collor for the weight and height values.
                      */
-                    if ((i == 0) || (j == 0))
+                    if ((i == 0) || (j == 0) || (i == 1) || (j == 1))
                     {
                         Console.ForegroundColor = ConsoleColor.DarkGray;
-                    }
-                    else if ((i == 1) || (j == 1))
-                    {
-                        Console.ForegroundColor = ConsoleColor.DarkGray;
-                    }
+                    }                   
                     else if ((i > MIN_ROW - 1) && (j > MIN_COL - 1))
                     {
                         int ChartBmiValue = Convert.ToInt32(BmiChart[i, j]);
@@ -152,6 +144,7 @@ namespace ConsoleAppProject.App02
                         CollorChanger.ChangeColor(ChartBmiValue);
                     }
 
+                    //Highlight the user's bmi
                     if ((i == HeightOnChart) && (j == WeightOnChart))
                     {
                         Console.ForegroundColor = ConsoleColor.White;
@@ -159,6 +152,7 @@ namespace ConsoleAppProject.App02
 
                     Console.Write(BmiChart[i, j]);
                 }
+
                 Console.WriteLine("");
             }
         }
