@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 namespace ConsoleAppProject.App01
 {
     /// <summary>
@@ -15,19 +16,84 @@ namespace ConsoleAppProject.App01
     /// </author>
     public class DistanceConverter
     {
+        public const int NUMBER_OF_DECIMALS = 3;
         public const double FEET_IN_MILES = 0.000189394;
-        public const double METERS_IN_MILES = 0.000621371;
-        public const double KILOMETERS_IN_MILES = 0.621371;
-        public const double MILES_IN_MILES = 1;
-        public const double NO_UNIT_IN_MILES = 1;
-        public const int ROUND_DECIMALS = 3;
+        public const double METER_IN_MILES = 0.000621371;
+        public const double KILOMETRE_IN_MILES = 0.621371;
+        public const double CENTIMETER_IN_MILES = 6.2137e-6;
+        public const double MILIMETRE_IN_MILES = 6.2137e-7;
+        public const double MICROMETRE_IN_MILES = 6.2137e-10;
+        public const double NANOMETRE_IN_MILES = 6.2137e-13;
+        public const double YARD_IN_MILES = 0.000568182;
+        public const double INCH_IN_MILES = 1.5783e-5;
+        public const double NAUTICAL_MILE_IN_MILES = 1.15078;
+
+        //[BindProperty]
+        public double Amount { get; set; }
+        //[BindProperty]
+       public UnitsEnum Converted { get; set; }
+        //[BindProperty]
+        public UnitsEnum ToConvert { get; set; }
+        public double Result { get; set; }
+
+        /// <summary>
+        /// On form submit this method will be called.
+        /// The method does not return anything, but in exchange will calculate the result, 
+        /// that is displayed on the screen.
+        /// </summary>        
+        public void OnPost()
+        {
+            Result = Math.Round((ConvertUnit(Converted) / ConvertUnit(ToConvert) * Amount), NUMBER_OF_DECIMALS);
+        }
+        /// <summary>
+        /// Return the covnversion in miles of an input value.
+        /// </summary>
+        /// <param name="choice">The value to be converted.</param>
+        /// <returns>Return a value converted, or return 1 for miles (1 mile = 1 mile)</returns>
+        public double ConvertUnit(UnitsEnum choice)
+        {
+            switch (choice)
+            {
+                case UnitsEnum.FEET:
+                    return FEET_IN_MILES;
+
+                case UnitsEnum.METER:
+                    return METER_IN_MILES;
+
+                case UnitsEnum.KILOMETRE:
+                    return KILOMETRE_IN_MILES;
+
+                case UnitsEnum.MILE:
+                    return 1;
+
+                case UnitsEnum.CENTIMETER:
+                    return CENTIMETER_IN_MILES;
+
+                case UnitsEnum.MILIMETRE:
+                    return MILIMETRE_IN_MILES;
+
+                case UnitsEnum.NANOMETRE:
+                    return NANOMETRE_IN_MILES;
+
+                case UnitsEnum.YARD:
+                    return YARD_IN_MILES;
+
+                case UnitsEnum.INCH:
+                    return INCH_IN_MILES;
+
+                case UnitsEnum.NAUTICAL_MILE:
+                    return NAUTICAL_MILE_IN_MILES;
+
+                default:
+                    return 1;
+            }
+        }
 
         /// <summary>
         /// Run the program in steps.
         /// </summary>
         public void RunDistanceConverter()
         {
-            PrintHeading();
             int valueToBeConverted = Math.Abs(SelectMainUnit());
             int valueToConvertTo = Math.Abs(SelectConversionUnit());
             double amount = Math.Abs(ReadAmount());
@@ -35,27 +101,17 @@ namespace ConsoleAppProject.App01
             double result =(ConvertUnit(valueToBeConverted) / ConvertUnit(valueToConvertTo)) * amount;
 
             Console.Clear();
-            PrintHeading();
+            
             Console.Beep();
 
             Console.WriteLine("\t" + amount + " " + TranslateUnit(valueToBeConverted)  +
-                            " translates to " + Math.Round(result, ROUND_DECIMALS) + " " + TranslateUnit(valueToConvertTo));
+                            " translates to " + Math.Round(result, NUMBER_OF_DECIMALS) + " " + TranslateUnit(valueToConvertTo));
 
-        }
-        /// <summary>
-        ///  Print a heading with app and author name.
-        /// </summary>
-        private void PrintHeading()
-        {
-            Console.WriteLine("\t\t----------------------------\n");
-            Console.WriteLine("\t\t     Distance converter     \n");
-            Console.WriteLine("\t\t   App by Andrei Cruceru    \n");
-            Console.WriteLine("\t\t----------------------------\n");
-        }
+        }        
         /// <summary>
         /// Ask the user for an unit input.
         /// </summary>        
-        public int SelectMainUnit()
+        private int SelectMainUnit()
         {
             Console.WriteLine("\tPlease enter the number associated with the distance unit you want to convert: \n");
 
@@ -73,8 +129,7 @@ namespace ConsoleAppProject.App01
 
             PrintUnitList();
 
-            return int.Parse(Console.ReadLine());
-            
+            return int.Parse(Console.ReadLine());            
         }
 
         /// <summary>
@@ -82,11 +137,17 @@ namespace ConsoleAppProject.App01
         /// </summary>
         private void PrintUnitList()
         {
-            Console.WriteLine("\t1." + DistanceUnits.Feet + "\n");
-            Console.WriteLine("\t2." + DistanceUnits.Metres + "\n");
-            Console.WriteLine("\t3." + DistanceUnits.Kilometres + "\n");
-            Console.WriteLine("\t4." + DistanceUnits.Miles + "\n");
-            Console.WriteLine("\t5." + DistanceUnits.NoUnit + "\n");
+            Console.WriteLine("\t1." + UnitsEnum.FEET + "\n");
+            Console.WriteLine("\t2." + UnitsEnum.METER + "\n");
+            Console.WriteLine("\t3." + UnitsEnum.KILOMETRE + "\n");
+            Console.WriteLine("\t4." + UnitsEnum.MILE + "\n");
+            Console.WriteLine("\t5." + UnitsEnum.MICROMETRES + "\n");
+            Console.WriteLine("\t6." + UnitsEnum.MILIMETRE + "\n");
+            Console.WriteLine("\t7." + UnitsEnum.NAUTICAL_MILE + "\n");
+            Console.WriteLine("\t8." + UnitsEnum.CENTIMETER + "\n");
+            Console.WriteLine("\t9." + UnitsEnum.NANOMETRE + "\n");
+            Console.WriteLine("\t10." + UnitsEnum.YARD + "\n");
+            Console.WriteLine("\t11." + UnitsEnum.INCH + "\n");
         }
 
         /// <summary>
@@ -113,13 +174,27 @@ namespace ConsoleAppProject.App01
                 case 1:
                     return FEET_IN_MILES;
                 case 2:
-                    return METERS_IN_MILES;
+                    return METER_IN_MILES;
                 case 3:
-                    return KILOMETERS_IN_MILES;
+                    return KILOMETRE_IN_MILES;
                 case 4:
-                    return MILES_IN_MILES;
+                    return 1;
+                case 5:
+                    return MICROMETRE_IN_MILES;
+                case 6:
+                    return MILIMETRE_IN_MILES;
+                case 7:
+                    return NAUTICAL_MILE_IN_MILES;
+                case 8:
+                    return CENTIMETER_IN_MILES;
+                case 9:
+                    return NANOMETRE_IN_MILES;
+                case 10:
+                    return YARD_IN_MILES;
+                case 11:
+                    return INCH_IN_MILES;
                 default:
-                    return NO_UNIT_IN_MILES;
+                    return 1;
             }
         }
 
@@ -140,8 +215,22 @@ namespace ConsoleAppProject.App01
                     return "kilometers";
                 case 4:
                     return "miles";
+                case 5:
+                    return "micrometers";
+                case 6:
+                    return "milimitres";
+                case 7:
+                    return "nautical miles";
+                case 8:
+                    return "centimeters";
+                case 9:
+                    return "nanometers";
+                case 10:
+                    return "yards";
+                case 11:
+                    return "inches";
                 default:
-                    return "(no unit selected)";
+                    return "no value";
             }
         }
 

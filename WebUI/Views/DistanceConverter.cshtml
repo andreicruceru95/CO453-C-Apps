@@ -1,0 +1,50 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@using ConsoleAppProject.App01
+@model ConsoleAppProject.App01.DistanceConverter
+@{
+    ViewData["Title"] = "DistanceConverter";
+}
+
+<div class="jumbotron jumbotron-fluid" id="chef-jumbotron">
+
+    <div id="jumbotron-main-text" class="text-center">
+        <h1>Distance Converter Application</h1>
+        <p>Check the conversion between two distance units!</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <h1>Convert Distance</h1>
+        <hr>
+        <form method="post">
+            <div class="form-group">
+                <label for="amount">Select the amount!</label>
+                <input class="form-control" asp-for="Amount" placeholder="Your amount.." required />
+            </div>
+            <div class="form-group">
+                <label for="converted">Select the unit value you want to convert!</label>
+                <select class="form-control" asp-for="Converted" asp-items="Html.GetEnumSelectList<UnitsEnum>()" required>
+                    <option value="">---none---</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="toConvert">Select the unit value you want to convert to!</label>
+                <select class="form-control" asp-for="ToConvert" asp-items="Html.GetEnumSelectList<UnitsEnum>()" required>
+                    <option value="">---none---</option>
+                </select>
+            </div>
+            <button type="submit" class="btn" style="background-color:forestgreen;">Convert Distance</button>
+        </form>
+    </div>
+
+    <div class="col">
+        <h1>Result</h1>
+        <hr>
+        <div class="align-items-center">
+            <h2 class="rounded-circle">@Model.Result</h2>
+        </div>
+    </div>
+</div>

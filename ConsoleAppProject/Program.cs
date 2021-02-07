@@ -1,4 +1,5 @@
 using ConsoleAppProject.App01;
+using ConsoleAppProject.App02;
 using System;
 
 namespace ConsoleAppProject
@@ -9,22 +10,61 @@ namespace ConsoleAppProject
     /// to start Apps 01 to 05 for CO453 CW1
     /// 
     /// This Project has been modified by:
-    /// Andrei Cruceru 30/01/2021
+    /// Andrei Cruceru 06/01/2021
     /// </summary>
     public static class Program
     {
         public static void Main(string[] args)
         {
-            Console.ForegroundColor = ConsoleColor.Red;
-            
-            Console.WriteLine("BNU CO453 Applications Programming 2020-2021!");
-            Console.WriteLine();
-            Console.Beep();
-
-            DistanceConverter converter = new DistanceConverter();
-
-            converter.RunDistanceConverter();
+            Console.ForegroundColor = ConsoleColor.White;
+            PrintHeading("BNU CO453 Applications Programming");
+            ChoseApplication(1);
+           
         }
-        
+
+        public static void ChoseApplication(int AppNumber)
+        {
+            switch (AppNumber)
+            {
+                case 0:
+                    PrintHeading("Distance Converter");
+
+                    DistanceConverter converter = new DistanceConverter();
+                    converter.RunDistanceConverter();
+                    break;
+
+                case 1:
+                    PrintHeading("BMI Converter");
+
+                    BMI.RunBmiConverter();
+                    break;
+
+                case 2:
+                    break;
+
+                case 3:
+                    break;
+
+                case 4:
+                    break;
+
+                default:
+                    Console.WriteLine("\tThis number is not recognized. Try again!");
+                    break;
+            }
+        }
+
+        /// <summary>
+        ///  Print a heading with app and author name.
+        /// </summary>
+        private static void PrintHeading(string title)
+        {
+            Console.WriteLine("\t\t--------------------------------------\n");
+            Console.WriteLine("\t\t\t" + title + "\n");
+            Console.WriteLine("\t\t\t   App by Andrei Cruceru              \n");
+            Console.WriteLine("\t\t--------------------------------------\n");
+            Console.Beep();
+        }
+
     }
 }

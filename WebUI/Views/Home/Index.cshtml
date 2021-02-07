@@ -1,0 +1,65 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="jumbotron justify-content-center">
+    <h1 class="display-4">CO453 Application Programming</h1>
+    <h2>Creating basic applications with a user interface in ASP.NET</h2>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+<div class="project-list">
+    <div class="container justify-content-center">        
+        <div class="row apps justify-content-xl-center">
+            <div class="card" style="width: 18rem; border: 2px solid black;">
+                <img class="card-img-top" style="height:40%; background-size: cover" src="~/images/distance-convertor.png" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Distance Converter</h5>
+                    <p class="card-text">A application that can convert between chosen distance units.</p>
+                    <a asp-page="/DistanceConverter/DistanceConverter" class="btn btn-primary position-absolute" style="bottom: 5px;" ;>Visit</a>
+                </div>
+            </div>
+            <div class="card" style="width: 18rem; border: 2px solid black;">
+                <img class="card-img-top" style="height:40%; background-size: cover" src="~/images//bmi_chart.gif" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">BMI Calculator</h5>
+                    <p class="card-text">Do you feel healthy? Test your health with this Body Mass Index Calculator Application.</p>
+                    <a asp-page="/BMICalculator/BMI-Calculator" class="btn btn-primary position-absolute" style="bottom: 5px;" ;>Visit</a>
+                </div>
+            </div>
+            <div class="card" style="width: 18rem; border: 2px solid black;">
+                <img class="card-img-top" style="height:40%; background-size: cover" src="~/images//grades.jpg" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Student Marks</h5>
+                    <p class="card-text">A database application that keeps track of students and their grades.</p>
+                    <a asp-page="/StudentMarks/Student-Marks" class="btn btn-primary position-absolute" style="bottom: 5px;" ;>Visit</a>
+                </div>
+            </div>
+            <div class="card" style="width: 18rem; border: 2px solid black;">
+                <img class="card-img-top" style="height:40%; background-size: cover" src="~/images//social.jpg" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Social Network</h5>
+                    <p class="card-text">Tired of using FaceBook? Check out this new social network application called "Not FaceBook"!</p>
+                    <a asp-page="/SocialNetwork/Social-Network" class="btn btn-primary position-absolute" style="bottom: 5px;" ;>Visit</a>
+                </div>
+            </div>
+            <div class="card" style="width: 18rem; border: 2px solid black;">
+                <img class="card-img-top" style="height:40%; background-size:cover;" src="~/images//rps.png" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">RPS Game</h5>
+                    <p class="card-text">Fancy a little Rock-Paper-Scissors game? </p>
+                    <a asp-page="/RPSGame/RPS-Game" class="btn btn-primary position-absolute" style="bottom: 5px;" ;>Visit</a>
+                </div>
+            </div>
+            <div class="card" style="width: 18rem; border: 2px solid black;">
+                <img class="card-img-top" style="height:40%; background-size: cover" src="~/images//simulation.jpg" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Wildlife Simulation</h5>
+                    <p class="card-text">A simulation of foxes and rabits in a reserve. How does building a highway through the reserve, affect the population?</p>
+                    <a asp-page="/FoxesRabits/Foxes-Rabits" class="btn btn-primary position-absolute" style="bottom: 5px;" ;>Visit</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
