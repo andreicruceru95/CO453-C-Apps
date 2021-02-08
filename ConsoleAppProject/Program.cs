@@ -44,8 +44,8 @@ namespace ConsoleAppProject
                     PrintHeading("Distance Converter");
 
                     //Create an object
-                    var converter = new DistanceConverter();
-                    converter.RunDistanceConverter();
+                    _ = new DistanceConverter();
+                    DistanceConverter.RunDistanceConverter();
 
                     break;
 
@@ -87,7 +87,8 @@ namespace ConsoleAppProject
         /// <param name="Description"></param>
         private static void PrintDescription(string Description)
         {
-            Console.WriteLine($"\n\t{Description}");
+            Console.WriteLine($"\n" +
+                $"{Description}");
         }
 
         /// <summary>

@@ -5,7 +5,7 @@ namespace ConsoleAppProject.App01
     /// <summary>
     /// This application will read integer type values from the user
     /// and convert it to a chosen unit value.
-    /// In order to convert any unit type to any unit type 
+    /// In order to convert any unit type to any unit type
     /// this program will convert all the units to a common unit and will calculate
     /// the result.
     /// In mathematical terms, if x = amount, a = unit to convert, b = unit to convert to and c = common unit,
@@ -38,9 +38,9 @@ namespace ConsoleAppProject.App01
 
         /// <summary>
         /// On form submit this method will be called.
-        /// The method does not return anything, but in exchange will calculate the result, 
+        /// The method does not return anything, but in exchange will calculate the result,
         /// that is displayed on the screen.
-        /// </summary>        
+        /// </summary>
         public void OnPost()
         {
             Result = Math.Round((ConvertUnit(Converted) / ConvertUnit(ToConvert) * Amount), NUMBER_OF_DECIMALS);
@@ -50,92 +50,71 @@ namespace ConsoleAppProject.App01
         /// </summary>
         /// <param name="choice">The value to be converted.</param>
         /// <returns>Return a value converted, or return 1 for miles (1 mile = 1 mile)</returns>
-        public double ConvertUnit(UnitsEnum choice)
+        public static double ConvertUnit(UnitsEnum choice)
         {
-            switch (choice)
+            return choice switch
             {
-                case UnitsEnum.FEET:
-                    return FEET_IN_MILES;
-
-                case UnitsEnum.METER:
-                    return METER_IN_MILES;
-
-                case UnitsEnum.KILOMETRE:
-                    return KILOMETRE_IN_MILES;
-
-                case UnitsEnum.MILE:
-                    return 1;
-
-                case UnitsEnum.CENTIMETER:
-                    return CENTIMETER_IN_MILES;
-
-                case UnitsEnum.MILIMETRE:
-                    return MILIMETRE_IN_MILES;
-
-                case UnitsEnum.NANOMETRE:
-                    return NANOMETRE_IN_MILES;
-
-                case UnitsEnum.YARD:
-                    return YARD_IN_MILES;
-
-                case UnitsEnum.INCH:
-                    return INCH_IN_MILES;
-
-                case UnitsEnum.NAUTICAL_MILE:
-                    return NAUTICAL_MILE_IN_MILES;
-
-                default:
-                    return 1;
-            }
+                UnitsEnum.FEET => FEET_IN_MILES,
+                UnitsEnum.METER => METER_IN_MILES,
+                UnitsEnum.KILOMETRE => KILOMETRE_IN_MILES,
+                UnitsEnum.MILE => 1,
+                UnitsEnum.CENTIMETER => CENTIMETER_IN_MILES,
+                UnitsEnum.MILIMETRE => MILIMETRE_IN_MILES,
+                UnitsEnum.NANOMETRE => NANOMETRE_IN_MILES,
+                UnitsEnum.YARD => YARD_IN_MILES,
+                UnitsEnum.INCH => INCH_IN_MILES,
+                UnitsEnum.NAUTICAL_MILE => NAUTICAL_MILE_IN_MILES,
+                _ => 1,
+            };
         }
 
         /// <summary>
         /// Run the program in steps.
         /// </summary>
-        public void RunDistanceConverter()
+        public static void RunDistanceConverter()
         {
-            int valueToBeConverted = Math.Abs(SelectMainUnit());
-            int valueToConvertTo = Math.Abs(SelectConversionUnit());
-            double amount = Math.Abs(ReadAmount());
+            var valueToBeConverted = Math.Abs(SelectMainUnit());
+            var valueToConvertTo = Math.Abs(SelectConversionUnit());
+            var amount = Math.Abs(ReadAmount());
 
-            double result =(ConvertUnit(valueToBeConverted) / ConvertUnit(valueToConvertTo)) * amount;
+            var result =(ConvertUnit(valueToBeConverted) / ConvertUnit(valueToConvertTo)) * amount;
 
             Console.Clear();
-            
+
             Console.Beep();
 
             Console.WriteLine("\t" + amount + " " + TranslateUnit(valueToBeConverted)  +
                             " translates to " + Math.Round(result, NUMBER_OF_DECIMALS) + " " + TranslateUnit(valueToConvertTo));
 
-        }        
+        }
         /// <summary>
         /// Ask the user for an unit input.
-        /// </summary>        
-        private int SelectMainUnit()
+        /// </summary>
+        private static int SelectMainUnit()
         {
             Console.WriteLine("\tPlease enter the number associated with the distance unit you want to convert: \n");
 
-            PrintUnitList();   
+            PrintUnitList();
 
-            return int.Parse(Console.ReadLine());  
+            return int.Parse(Console.ReadLine());
         }
 
         /// <summary>
         /// Ask the user to input a conversion unit.
         /// </summary>
-        private int SelectConversionUnit()
+        private static int SelectConversionUnit()
         {
             Console.WriteLine("\tPlease enter the number asociated with the distance unit to convert to: \n");
 
             PrintUnitList();
 
-            return int.Parse(Console.ReadLine());            
+            return int.Parse(Console.ReadLine());
         }
 
         /// <summary>
         /// Print a list of distance unit options.
         /// </summary>
-        private void PrintUnitList()
+        private static void PrintUnitList()
         {
             Console.WriteLine("\t1." + UnitsEnum.FEET + "\n");
             Console.WriteLine("\t2." + UnitsEnum.METER + "\n");
@@ -154,12 +133,11 @@ namespace ConsoleAppProject.App01
         /// Ask the user for an amount that need to be converted.
         /// </summary>
         /// <returns></returns>
-        private double ReadAmount()
+        private static double ReadAmount()
         {
             Console.WriteLine("\n\tPlease select amount!");
-            
-            return double.Parse(Console.ReadLine()); 
 
+            return double.Parse(Console.ReadLine());
         }
 
         /// <summary>
@@ -167,35 +145,23 @@ namespace ConsoleAppProject.App01
         /// </summary>
         /// <param name="choice">Represents the user's input.</param>
         /// <returns>Return the value of the input in miles.</returns>
-        private double ConvertUnit(int choice)
+        private static double ConvertUnit(int choice)
         {
-            switch(choice)
+            return choice switch
             {
-                case 1:
-                    return FEET_IN_MILES;
-                case 2:
-                    return METER_IN_MILES;
-                case 3:
-                    return KILOMETRE_IN_MILES;
-                case 4:
-                    return 1;
-                case 5:
-                    return MICROMETRE_IN_MILES;
-                case 6:
-                    return MILIMETRE_IN_MILES;
-                case 7:
-                    return NAUTICAL_MILE_IN_MILES;
-                case 8:
-                    return CENTIMETER_IN_MILES;
-                case 9:
-                    return NANOMETRE_IN_MILES;
-                case 10:
-                    return YARD_IN_MILES;
-                case 11:
-                    return INCH_IN_MILES;
-                default:
-                    return 1;
-            }
+                1 => FEET_IN_MILES,
+                2 => METER_IN_MILES,
+                3 => KILOMETRE_IN_MILES,
+                4 => 1,
+                5 => MICROMETRE_IN_MILES,
+                6 => MILIMETRE_IN_MILES,
+                7 => NAUTICAL_MILE_IN_MILES,
+                8 => CENTIMETER_IN_MILES,
+                9 => NANOMETRE_IN_MILES,
+                10 => YARD_IN_MILES,
+                11 => INCH_IN_MILES,
+                _ => 1,
+            };
         }
 
         /// <summary>
@@ -203,37 +169,23 @@ namespace ConsoleAppProject.App01
         /// </summary>
         /// <param name="unitNumber">The input integer of the user.</param>
         /// <returns>The respresentation of the integer in String type.</returns>
-        private String TranslateUnit(int unitNumber)
+        private static String TranslateUnit(int unitNumber)
         {
-            switch(unitNumber)
+            return unitNumber switch
             {
-                case 1:
-                    return "feet";
-                case 2:
-                    return "meters";
-                case 3:
-                    return "kilometers";
-                case 4:
-                    return "miles";
-                case 5:
-                    return "micrometers";
-                case 6:
-                    return "milimitres";
-                case 7:
-                    return "nautical miles";
-                case 8:
-                    return "centimeters";
-                case 9:
-                    return "nanometers";
-                case 10:
-                    return "yards";
-                case 11:
-                    return "inches";
-                default:
-                    return "no value";
-            }
+                1 => "feet",
+                2 => "meters",
+                3 => "kilometers",
+                4 => "miles",
+                5 => "micrometers",
+                6 => "milimitres",
+                7 => "nautical miles",
+                8 => "centimeters",
+                9 => "nanometers",
+                10 => "yards",
+                11 => "inches",
+                _ => "no value",
+            };
         }
-
-        
    }
 }

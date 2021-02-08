@@ -142,14 +142,17 @@ namespace ConsoleAppProject.App02
 
         public static string GetDescription()
         {
-            return "\tYour BMI, or Body Mass Index, is a measure of your weight compared to your height. Accurate assessments of obesity are important,\n" +
-                "as being overweight or obese significantly increases your risk of a variety of medical conditions including type 2 diabetes, heart disease and cancer.\n" +
-                "\tFor most adults, BMI gives a good estimate of your weight-related health risks. If your BMI is over 35, your weight is definitely putting your health at risk,\n" +
-                "regardless of the factors below. However, there are some situations where BMI may underestimate or overestimate these risks in the 25 - 35 BMI range. The main ones are:\n" +
-                "\t-Children\n" +
-                "\t-Pregnant women.\n" +
-                "\tMuscle Builders.\n" +
-                "\tBAME: Black, Asian and other minority ethnic groups.\n";
+            return "\t\tYour BMI, or Body Mass Index, is a measure of your weight compared to your height.\n" +
+                "\t Accurate assessments of obesity are important, as being overweight or obese significantly\n" +
+                "\tincreases your risk of a variety of medical conditions including type 2 diabetes, heart disease and cancer.\n\n" +
+                "\t\tFor most adults, BMI gives a good estimate of your weight-related health risks. If your BMI is over 35,\n" +
+                "\tyour weight is definitely putting your health at risk,tregardless of the factors below. However,\n" +
+                "\tthere are some situations where BMI may underestimate or overestimate these risks in the 25 - 35 BMI range.\n\n" +
+                "\tThe main ones are:\n\n" +
+                "\t\t-Children\n" +
+                "\t\t-Pregnant women.\n" +
+                "\t\tMuscle Builders.\n" +
+                "\t\tBAME: Black, Asian and other minority ethnic groups.\n";
         }
     }
 }
