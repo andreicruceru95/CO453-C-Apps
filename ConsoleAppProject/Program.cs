@@ -34,9 +34,7 @@ namespace ConsoleAppProject
             catch(ArgumentOutOfRangeException)
             {
                 
-            }
-
-           
+            }           
         }
 
         public static void ChoseApplication(int AppNumber)
