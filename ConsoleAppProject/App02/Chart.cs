@@ -15,28 +15,20 @@ namespace ConsoleAppProject.App02
         public const int LENGTH = 26;
         public const int HEIGHT = 21;
         public const int MIN_ROW = 4;
+        public const int MAX_ROW = 21;
         public const int MIN_COL = 2;
+        public const int MAX_COL = 26;
         public const double FEET_IN_CM = 30.48;
         public const double INCH_IN_CM = 2.54;
         public const double POUND_IN_KG = 0.453592;
         
         public static string[,] BmiChart = new string[21, 26];
-        
+
         /// <summary>
         /// Create the layout of the chart.
         /// </summary>
-        public static void CreateChart(int Weight, int Height)
+        public static void CreateChart(int Height, int Weight)
         {
-            int RowCount = 0;
-            int ColCount = 0;
-            int FeetValue = 5;
-            int InchAmount = 0;
-            int InchMax = 11;
-            int PoundToAdd = 5;
-            int MinPoundValue = 95;
-            int WeightOnChart = 0;
-            int HeightOnChart = 0;
-
             BmiChart[0, 0] = "  W  ";
             BmiChart[0, 1] = " LBS ";
             BmiChart[1, 0] = "     ";
@@ -46,6 +38,25 @@ namespace ConsoleAppProject.App02
             BmiChart[MIN_COL + 1, 0] = " FT  ";
             BmiChart[MIN_COL + 1, 1] = " CM  ";
 
+            //steps:
+            AddToLeft();
+            AddToTop();
+            WriteBmiValues();
+
+            Tuple<int, int> Index = Calculator.GetIndex(Height, Weight, BmiChart);
+ 
+            //int UserHeightRow = Calculator.FindRowValue(MIN_COL + 1, MAX_COL, BmiChart, Height);
+            //int UserWeightBmi = Calculator.FindColValue(MIN_ROW + 1, MAX_ROW, BmiChart, Weight);            
+            PrintChart(Index.Item1, Index.Item2);
+        }
+        /// <summary>
+        /// Add the values to the left of the chart.
+        /// </summary>
+        private static void AddToLeft()
+        {
+            int FeetValue = 5;
+            int InchAmount = 0;
+            int InchMax = 11;
             /**
              * Add the Height values to the left
              */
@@ -66,27 +77,18 @@ namespace ConsoleAppProject.App02
                 }
 
                 BmiChart[i, 1] = " " + Math.Round((FeetValue * FEET_IN_CM) + (InchAmount * INCH_IN_CM), 0) + " ";
-
-                /**
-                 * Check if the closest height value on the chart to the user's height.
-                 */
-                if (((i > MIN_ROW + 1) && Height <= Convert.ToDouble(BmiChart[i, 1])))
-                {
-                    RowCount++;
-
-                    if (Calculator.GetClosest(Convert.ToInt32(BmiChart[i - 1, 1]), Convert.ToInt32(BmiChart[i, 1]), Height) == 0)
-                    {
-
-                        HeightOnChart = i - (RowCount);
-                    }
-                    else
-                    {
-                        HeightOnChart = i - (RowCount - 1);
-                    }
-                }
-
-                InchAmount++;
-            }
+                InchAmount++;               
+                
+            } 
+        }
+        
+        /// <summary>
+        /// Add Values to the top of the chart
+        /// </summary>
+        private static void AddToTop()
+        { 
+            int PoundToAdd = 5;
+            int MinPoundValue = 95;
             /**
              * Add the weight values to the top.
              */
@@ -96,35 +98,15 @@ namespace ConsoleAppProject.App02
 
                 BmiChart[0, j] = " " + MinPoundValue + " ";
                 BmiChart[1, j] = " " + Math.Round((MinPoundValue * POUND_IN_KG), 0) + "  ";
-                BmiChart[MIN_COL, j] = "     ";
-
-                /**
-                * Check if the closest weight value on the chart to the user's weight.
-                */
-                if (((j > MIN_COL) && Weight <= Convert.ToInt32(BmiChart[1, j])))
-                {
-                    ColCount++;
-
-                    if (Calculator.GetClosest(Convert.ToInt32(BmiChart[1, j - 1]), Convert.ToInt32(BmiChart[1, j]), Weight) == 0)
-                    {
-                        WeightOnChart = j - (ColCount);
-                    }
-                    else
-                    {
-                        WeightOnChart = j - (ColCount - 1);
-                    }
-                }
+                BmiChart[MIN_COL, j] = "     ";               
             }
-
-            WriteBmiValues();
-            PrintChart(WeightOnChart, HeightOnChart);
         }
 
         /// <summary>
         /// Print the chart on the screen.
         /// </summary>
         /// <param name="UserBmi">The user's bmi value.</param>
-        public static void PrintChart( int WeightOnChart, int HeightOnChart)
+        public static void PrintChart(int HeightOnChart, int WeightOnChart) 
         {
             for (int i = 0; i < HEIGHT; i++)
             {
@@ -169,6 +151,7 @@ namespace ConsoleAppProject.App02
                 for (int j = MIN_COL; j < LENGTH; j++)
                 {
                     BmiChart[i, j] = " " + Math.Round(Calculator.CalculateBmi(Convert.ToInt32(BmiChart[1, j]), Convert.ToInt32(BmiChart[i, 1])), 0) + "  ";
+
                 }
             }
         }

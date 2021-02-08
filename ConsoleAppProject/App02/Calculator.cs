@@ -11,6 +11,8 @@ namespace ConsoleAppProject.App02
     /// </summary>
     public static class Calculator
     {
+        public const int HEIGHT_START = 5;
+        public const int WEIGHT_START = 3;
         /// <summary>
         /// Recieve two values and a target and return the closest value to the target.
         /// </summary>
@@ -27,6 +29,52 @@ namespace ConsoleAppProject.App02
         }
 
         /// <summary>
+        /// Iterate the array and compare the user's weight and height to the chart values.
+        /// </summary>
+        /// <param name="Weight">User's Weight</param>
+        /// <param name="Height">User's height</param>
+        /// <param name="Array">The 2D chart</param>
+        /// <returns>A pair of (row, col) values</returns>
+        public static Tuple<int,int> GetIndex(int Weight, int Height, string[,] Array)
+        {
+            int RowIndex = 0;
+            int ColIndex = 0;
+
+            for (int i = HEIGHT_START; i < Array.GetLength(0); i++)
+            {
+                for(int j = WEIGHT_START; j<Array.GetLength(1); j++)
+                {
+                    /**
+                     * If height, weight <= then chart value then we are returning 
+                     * the closest value of the chart to the user's weight and height. 
+                     */
+                    if((Convert.ToInt32(Array[i,1]) >= Height) && (Convert.ToInt32(Array[1, j]) >= Weight))
+                    {
+                        if ((GetClosest(Convert.ToInt32(Array[i - 1, 1]), Convert.ToInt32(Array[i, 1]), Height) == 1))
+                        {
+                            RowIndex = i;
+                        }
+                        else
+                            RowIndex = i - 1;
+
+                        if ((GetClosest(Convert.ToInt32(Array[1, j - 1]), Convert.ToInt32(Array[1, j]), Weight) == 1))
+                        {
+                            ColIndex = j;
+                        }
+                        else
+                            ColIndex = j - 1;
+
+                        return Tuple.Create(RowIndex, ColIndex);
+                    }
+                }
+            }
+
+            return Tuple.Create(0, 0);
+        }
+
+
+
+        /// <summary>
         /// Calculate BMI for a given weight and height.
         /// </summary>
         /// <param name="weight">Input weight</param>
@@ -34,7 +82,8 @@ namespace ConsoleAppProject.App02
         /// <returns>Bmi as integer value.</returns>
         public static double CalculateBmi(int Kilograms, double Centimeters)
         {
-            double Meters = Centimeters / 100;
+            int CmInMeters = 100;
+            double Meters = Centimeters / CmInMeters;
             return (Kilograms / (Meters * Meters));
         }
     }

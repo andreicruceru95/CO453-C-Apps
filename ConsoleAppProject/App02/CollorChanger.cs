@@ -6,6 +6,11 @@ namespace ConsoleAppProject.App02
 {
     public static class CollorChanger
     {
+        public const int RED = 39;
+        public const int MAGENTA = 30;
+        public const int BLUE = 24;
+        public const int GREEN = 18;
+
         /// <summary>
         /// Change the color of the text depending of the input value.
         /// </summary>
@@ -13,19 +18,19 @@ namespace ConsoleAppProject.App02
         public static void ChangeColor(double ChartBmiValue)
         {
 
-            if (ChartBmiValue > 39)
+            if (ChartBmiValue > RED)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
             }
-            else if (ChartBmiValue > 30)
+            else if (ChartBmiValue > MAGENTA)
             {
                 Console.ForegroundColor = ConsoleColor.Magenta;
             }
-            else if (ChartBmiValue > 24)
+            else if (ChartBmiValue > BLUE)
             {
                 Console.ForegroundColor = ConsoleColor.Blue;
             }
-            else if (ChartBmiValue > 18)
+            else if (ChartBmiValue > GREEN)
             {
                 Console.ForegroundColor = ConsoleColor.Green;
             }

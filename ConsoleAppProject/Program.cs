@@ -14,11 +14,28 @@ namespace ConsoleAppProject
     /// </summary>
     public static class Program
     {
+        public const int APP01 = 1;
+        public const int APP02 = 2;
+        public const int APP03 = 3;
+        public const int APP04 = 4;
+        public const int APP05 = 5;
         public static void Main(string[] args)
         {
             Console.ForegroundColor = ConsoleColor.White;
             PrintHeading("BNU CO453 Applications Programming");
-            ChoseApplication(1);
+
+            try
+            {
+                Console.WriteLine("\tChose Application:");
+                ListApps();
+
+                ChoseApplication(Convert.ToInt32(Console.ReadLine()));
+            }
+            catch(ArgumentOutOfRangeException)
+            {
+                
+            }
+
            
         }
 
@@ -26,26 +43,26 @@ namespace ConsoleAppProject
         {
             switch (AppNumber)
             {
-                case 0:
+                case APP01:
                     PrintHeading("Distance Converter");
 
                     DistanceConverter converter = new DistanceConverter();
                     converter.RunDistanceConverter();
                     break;
 
-                case 1:
+                case APP02:
                     PrintHeading("BMI Converter");
 
                     BMI.RunBmiConverter();
                     break;
 
-                case 2:
+                case APP03:
                     break;
 
-                case 3:
+                case APP04:
                     break;
 
-                case 4:
+                case APP05:
                     break;
 
                 default:
@@ -57,13 +74,22 @@ namespace ConsoleAppProject
         /// <summary>
         ///  Print a heading with app and author name.
         /// </summary>
-        private static void PrintHeading(string title)
+        private static void PrintHeading(string Title)
         {
             Console.WriteLine("\t\t--------------------------------------\n");
-            Console.WriteLine("\t\t\t" + title + "\n");
+            Console.WriteLine("\t\t\t" + Title + "\n");
             Console.WriteLine("\t\t\t   App by Andrei Cruceru              \n");
             Console.WriteLine("\t\t--------------------------------------\n");
             Console.Beep();
+        }
+
+        /// <summary>
+        /// List the applications
+        /// </summary>
+        private static void ListApps()
+        {
+            Console.WriteLine("\t1. " + Apps.DistanceConverter + "\n\t2. " + Apps.BMIConverter +
+                "\n\t3. " + Apps.StudentMarks + "\n\t4. " + Apps.SocialNetwork + "\n\t5. " + Apps.RPS);
         }
 
     }
