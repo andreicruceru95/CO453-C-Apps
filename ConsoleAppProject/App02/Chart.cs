@@ -5,9 +5,9 @@ using System.Text;
 namespace ConsoleAppProject.App02
 {
     /// <summary>
-    /// This class will create and display a bmi chart with a highlited 
+    /// This class will create and display a bmi chart with a highlited
     /// value for the user's bmi.
-    /// The chart will contain multiple collors to display the bmi values according to their danger 
+    /// The chart will contain multiple collors to display the bmi values according to their danger
     /// to health.
     /// </summary>
     public static class Chart
@@ -21,12 +21,14 @@ namespace ConsoleAppProject.App02
         public const double FEET_IN_CM = 30.48;
         public const double INCH_IN_CM = 2.54;
         public const double POUND_IN_KG = 0.453592;
-        
+
         public static string[,] BmiChart = new string[21, 26];
 
         /// <summary>
         /// Create the layout of the chart.
         /// </summary>
+        /// <param name="Height">User's Height</param>
+        /// <param name="Weight">User's weight</param>
         public static void CreateChart(int Height, int Weight)
         {
             BmiChart[0, 0] = "  W  ";
@@ -43,10 +45,10 @@ namespace ConsoleAppProject.App02
             AddToTop();
             WriteBmiValues();
 
-            Tuple<int, int> Index = Calculator.GetIndex(Height, Weight, BmiChart);
- 
-            //int UserHeightRow = Calculator.FindRowValue(MIN_COL + 1, MAX_COL, BmiChart, Height);
-            //int UserWeightBmi = Calculator.FindColValue(MIN_ROW + 1, MAX_ROW, BmiChart, Weight);            
+            //tuple
+            var Index = Calculator.GetIndex(Height, Weight, BmiChart);
+
+            //pass the 2 variables of the tuple
             PrintChart(Index.Item1, Index.Item2);
         }
         /// <summary>
@@ -54,9 +56,9 @@ namespace ConsoleAppProject.App02
         /// </summary>
         private static void AddToLeft()
         {
-            int FeetValue = 5;
-            int InchAmount = 0;
-            int InchMax = 11;
+            var FeetValue = 5;
+            var InchAmount = 0;
+            const int InchMax = 11;
             /**
              * Add the Height values to the left
              */
@@ -77,18 +79,17 @@ namespace ConsoleAppProject.App02
                 }
 
                 BmiChart[i, 1] = " " + Math.Round((FeetValue * FEET_IN_CM) + (InchAmount * INCH_IN_CM), 0) + " ";
-                InchAmount++;               
-                
-            } 
+                InchAmount++;
+            }
         }
-        
+
         /// <summary>
         /// Add Values to the top of the chart
         /// </summary>
         private static void AddToTop()
-        { 
-            int PoundToAdd = 5;
-            int MinPoundValue = 95;
+        {
+            const int PoundToAdd = 5;
+            var MinPoundValue = 95;
             /**
              * Add the weight values to the top.
              */
@@ -98,15 +99,16 @@ namespace ConsoleAppProject.App02
 
                 BmiChart[0, j] = " " + MinPoundValue + " ";
                 BmiChart[1, j] = " " + Math.Round((MinPoundValue * POUND_IN_KG), 0) + "  ";
-                BmiChart[MIN_COL, j] = "     ";               
+                BmiChart[MIN_COL, j] = "     ";
             }
         }
 
         /// <summary>
         /// Print the chart on the screen.
         /// </summary>
-        /// <param name="UserBmi">The user's bmi value.</param>
-        public static void PrintChart(int HeightOnChart, int WeightOnChart) 
+        /// <param name="HeightOnChart">The user's height value on the chart.</param>
+        /// <param name="WeightOnChart">The user's weight value on the chart.</param>
+        public static void PrintChart(int HeightOnChart, int WeightOnChart)
         {
             for (int i = 0; i < HEIGHT; i++)
             {
@@ -118,10 +120,10 @@ namespace ConsoleAppProject.App02
                     if ((i == 0) || (j == 0) || (i == 1) || (j == 1))
                     {
                         Console.ForegroundColor = ConsoleColor.DarkGray;
-                    }                   
+                    }
                     else if ((i > MIN_ROW - 1) && (j > MIN_COL - 1))
                     {
-                        int ChartBmiValue = Convert.ToInt32(BmiChart[i, j]);
+                        var ChartBmiValue = Convert.ToInt32(BmiChart[i, j]);
 
                         CollorChanger.ChangeColor(ChartBmiValue);
                     }
@@ -142,8 +144,6 @@ namespace ConsoleAppProject.App02
         /// <summary>
         /// Calculate and write the BMI values in the chart.
         /// </summary>
-        /// <param name="UserWeight"></param>
-        /// <param name="UserHeight"></param>
         public static void WriteBmiValues()
         {
             for (int i = MIN_ROW; i < HEIGHT; i++)

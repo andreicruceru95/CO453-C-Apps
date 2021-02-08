@@ -8,9 +8,8 @@ namespace ConsoleAppProject
     /// The main method in this class is called first
     /// when the application is started.  It will be used
     /// to start Apps 01 to 05 for CO453 CW1
-    /// 
     /// This Project has been modified by:
-    /// Andrei Cruceru 06/01/2021
+    /// Andrei Cruceru 08/01/2021
     /// </summary>
     public static class Program
     {
@@ -31,10 +30,10 @@ namespace ConsoleAppProject
 
                 ChoseApplication(Convert.ToInt32(Console.ReadLine()));
             }
-            catch(ArgumentOutOfRangeException)
+            catch(Exception ex)
             {
-                
-            }           
+                Console.WriteLine($"{ex.GetType()}:\t{ex.Message}");
+            }
         }
 
         public static void ChoseApplication(int AppNumber)
@@ -44,24 +43,24 @@ namespace ConsoleAppProject
                 case APP01:
                     PrintHeading("Distance Converter");
 
-                    DistanceConverter converter = new DistanceConverter();
+                    //Create an object
+                    var converter = new DistanceConverter();
                     converter.RunDistanceConverter();
+
                     break;
 
                 case APP02:
                     PrintHeading("BMI Converter");
+                    PrintDescription(BMI.GetDescription());
 
                     BMI.RunBmiConverter();
                     break;
 
                 case APP03:
-                    break;
 
                 case APP04:
-                    break;
 
                 case APP05:
-                    break;
 
                 default:
                     Console.WriteLine("\tThis number is not recognized. Try again!");
@@ -72,13 +71,23 @@ namespace ConsoleAppProject
         /// <summary>
         ///  Print a heading with app and author name.
         /// </summary>
+        /// <param name="Title">App title</param>
         private static void PrintHeading(string Title)
         {
             Console.WriteLine("\t\t--------------------------------------\n");
-            Console.WriteLine("\t\t\t" + Title + "\n");
+            Console.WriteLine($"\t\t\t{Title}\n");
             Console.WriteLine("\t\t\t   App by Andrei Cruceru              \n");
             Console.WriteLine("\t\t--------------------------------------\n");
             Console.Beep();
+        }
+
+        /// <summary>
+        /// Print each application description
+        /// </summary>
+        /// <param name="Description"></param>
+        private static void PrintDescription(string Description)
+        {
+            Console.WriteLine($"\n\t{Description}");
         }
 
         /// <summary>
