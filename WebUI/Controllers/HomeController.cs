@@ -6,21 +6,28 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using WebUI.Models;
+using ConsoleAppProject.App01;
 
 namespace WebUI.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
-
-        public IActionResult DistanceConverter()
+        public IActionResult StudentApp()
         {
             return View();
+        }
+        public IActionResult StudentDetails()
+        {
+            return View();
+        }
+        public IActionResult NewStudent()
+        {
+            return View();
+        }
+        public IActionResult DistanceConverter()
+        {
+            DistanceConverter converter = new DistanceConverter();
+            return View(converter);
         }
 
         public IActionResult Index()

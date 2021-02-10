@@ -12,5 +12,8 @@ namespace WebUI.Data
             : base(options)
         {
         }
+
+        public DbSet<ConsoleAppProject.App03.Student> Students { get; set; }
+
     }
 }

@@ -1,0 +1,43 @@
+﻿body
+{
+}
+/*Student marks page Layout*/
+.student-marks-horizontal {
+    height: auto;
+}
+
+student-marks-inline {
+    width: 100%;
+    height: auto;
+    vertical-align: central;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+student-marks-inline-item-img {
+    height: 90%px;
+    width: 50%;
+}
+
+student-marks-inline-item-text {
+    width: 50%;
+    padding-left: 50px;
+    padding-right: 50px;
+    text-align: left;
+}
+
+.p .title {
+    text-align: center;
+    font-size: 3vw;
+    font-weight: 500;
+}
+
+.p.subtitle {
+    text-align: left;
+    font-size: 2vw;
+}
+
+.img {
+    width: 300px;
+    height: 200px;
+}

@@ -43,8 +43,8 @@ namespace ConsoleAppProject.App02
                 {
 
                     /**
-                     * If height, weight <= then chart value then we are returning
-                     * the closest value of the chart to the user's weight and height.
+                     * If height, weight <= chart value then we are returning
+                     * the closest values from the chart.
                      */
                     if((Convert.ToInt32(Array[i,1]) >= Height) && (Convert.ToInt32(Array[1, j]) >= Weight))
                     {
@@ -62,8 +62,6 @@ namespace ConsoleAppProject.App02
             return Tuple.Create(0, 0);
         }
 
-
-
         /// <summary>
         /// Calculate BMI for a given weight and height.
         /// </summary>
@@ -72,7 +70,7 @@ namespace ConsoleAppProject.App02
         public static double CalculateBmi(int Kilograms, double Centimeters)
         {
             const int CmInMeters = 100;
-            var Meters = Centimeters / CmInMeters;
+            var Meters = (Centimeters / CmInMeters);
 
             return (Kilograms / (Meters * Meters));
         }

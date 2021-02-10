@@ -26,20 +26,20 @@
             </div>
             <div class="form-group">
                 <label for="converted">Select the unit value you want to convert!</label>
-                <select class="form-control" asp-for="Converted" asp-items="Html.GetEnumSelectList<UnitsEnum>()" required>
+                <select class="form-control" asp-for="FromValue" asp-items="Html.GetEnumSelectList<UnitsEnum>()" required>
                     <option value="">---none---</option>
                 </select>
             </div>
             <div class="form-group">
                 <label for="toConvert">Select the unit value you want to convert to!</label>
-                <select class="form-control" asp-for="ToConvert" asp-items="Html.GetEnumSelectList<UnitsEnum>()" required>
+                <select class="form-control" asp-for="ToValue" asp-items="Html.GetEnumSelectList<UnitsEnum>()" required>
                     <option value="">---none---</option>
                 </select>
             </div>
             <button type="submit" class="btn" style="background-color:forestgreen;">Convert Distance</button>
         </form>
     </div>
-
+    
     <div class="col">
         <h1>Result</h1>
         <hr>

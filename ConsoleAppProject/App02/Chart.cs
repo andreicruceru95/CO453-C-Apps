@@ -123,9 +123,7 @@ namespace ConsoleAppProject.App02
                     }
                     else if ((i > MIN_ROW - 1) && (j > MIN_COL - 1))
                     {
-                        var ChartBmiValue = Convert.ToInt32(BmiChart[i, j]);
-
-                        CollorChanger.ChangeColor(ChartBmiValue);
+                        CollorChanger.ChangeColor(BmiChart[i, j]);
                     }
 
                     //Highlight the user's bmi

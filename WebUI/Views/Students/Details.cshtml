@@ -1,0 +1,36 @@
+﻿@model ConsoleAppProject.App03.Student
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Student</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-3">
+            Full Name
+        </dt>
+        <dd class = "col-sm-9">
+            @Model.FullName()
+        </dd>        
+        <dt class = "col-sm-3">
+            @Html.DisplayNameFor(model => model.Mark)
+        </dt>
+        <dd class = "col-sm-9">
+            @Html.DisplayFor(model => model.Mark)
+        </dd>
+        <dt class = "col-sm-3">
+            @Html.DisplayNameFor(model => model.Grade)
+        </dt>
+        <dd class = "col-sm-9">
+            @Model.CalculateGrade()
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.StudentID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

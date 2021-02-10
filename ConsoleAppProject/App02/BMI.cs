@@ -10,16 +10,20 @@ namespace ConsoleAppProject.App02
     /// </author>
     public static class BMI
     {
-        public const string METRIC = "metric";
-        public const string IMPERIAL = "imperial";
-        public const string EXIT = "exit";
-        public const string WEIGHT_MESSAGE = "Please enter your weight in ";
-        public const string HEIGHT_MESSAGE = "Please enter your height in ";
-        public const string IMP_HEIGHT_MESSAGE = "Please enter the number of ";
         public const double FEET_IN_CM = 30.48;
         public const double INCH_IN_CM = 2.54;
         public const double POUND_IN_KG = 0.453592;
-        public const int EXIT_CHOICE = 2;
+        public const double STONE_IN_KG = 6.35029;
+
+        public static int Weight { get; set; }
+        public static int Height { get; set; }
+        public static int Bmi { get; set; }
+
+        public static string[] UnitsType = new string[]
+        {
+            "Imperial",
+            "Metric",
+        };
 
         /// <summary>
         /// Run the application in steps.
@@ -27,6 +31,10 @@ namespace ConsoleAppProject.App02
         public static void RunBmiConverter()
         {
             GetInput();
+            CalculateBmi();
+            Chart.CreateChart(Weight, Height);
+            PrintChartDetails();
+            PrintBMIDetails();
         }
 
         /// <summary>
@@ -36,73 +44,24 @@ namespace ConsoleAppProject.App02
         /// </summary>
         private static void GetInput()
         {
-            var finished = false;
-            do
+            switch (ConsoleHelper.SelectChoice("Please chose a unit type from the following", UnitsType))
             {
-                try
-                {
-                    Console.WriteLine($"\tPlease chose a unit type: \n\t0. {METRIC} \n\t1. {IMPERIAL}\n\t2. {EXIT}\n\n\n\t\t>");
-                    var choice = Convert.ToInt32(Console.ReadLine());
+                //if imperial
+                case 1:
+                    Weight = Convert.ToInt32((ConsoleHelper.InputNumber("Enter your weight in stones >") * STONE_IN_KG) +
+                            (ConsoleHelper.InputNumber("Enter your weight in pounds >") * POUND_IN_KG));
 
-                    switch (choice)
-                    {
+                    Height = Convert.ToInt32((ConsoleHelper.InputNumber("Enter your heigth in feet >") * FEET_IN_CM) +
+                            (ConsoleHelper.InputNumber("Enter your heigth in inches >") * INCH_IN_CM));                   
 
-                        case 0:
-                            Console.WriteLine($"{WEIGHT_MESSAGE} Kilograms");
-                            var Weight = Convert.ToInt32(Console.ReadLine());
+                    break;
+                //if metric
+                default:
+                    Weight = Convert.ToInt32(ConsoleHelper.InputNumber("Enter your weight in kilograms >"));
+                    Height = Convert.ToInt32(ConsoleHelper.InputNumber("Enter your height in centimeters >"));
 
-                            Console.WriteLine($"{HEIGHT_MESSAGE} centimeters");
-                            var Height = Convert.ToInt32(Console.ReadLine());
-
-                            Display(Weight, Height);
-
-                            break;
-
-                        case 1:
-                            Console.WriteLine($"{WEIGHT_MESSAGE} Pounds");
-                            var PoundsAmount = Convert.ToInt32(Console.ReadLine());
-
-                            Console.WriteLine($"{IMP_HEIGHT_MESSAGE} feet");
-                            var FeetAmount = Convert.ToInt32(Console.ReadLine());
-
-                            Console.WriteLine($"{IMP_HEIGHT_MESSAGE} inches");
-                            var InchAmount = Convert.ToInt32(Console.ReadLine());
-
-                            var ImperialHeight = Convert.ToInt32((FeetAmount * FEET_IN_CM) + (InchAmount * INCH_IN_CM));
-                            var ImperialWeight = Convert.ToInt32((PoundsAmount * POUND_IN_KG));
-
-                            Display(ImperialWeight, ImperialHeight);
-
-                            break;
-
-                        case EXIT_CHOICE:
-                            finished = true;
-                            break;
-
-                        default:
-                            Console.WriteLine($"\tYour choice is not an option!\n\n\tPlease chose between {METRIC} or {IMPERIAL}");
-
-                            break;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"{ex.GetType()}:\t{ex.Message}");
-                    Console.ForegroundColor = ConsoleColor.White;
-                }
-            } while(!finished);
-        }
-
-        /// <summary>
-        /// Display the chart on the screen.
-        /// </summary>
-        /// <param name="Weight">User's weight</param>
-        /// <param name="Height">user's height</param>
-        private static void Display(int Weight, int Height)
-        {
-            Chart.CreateChart(Weight, Height);
-            PrintChartDetails();
-            PrintBMIDetails(Weight, Height);
+                    break;
+            }
         }
 
         /// <summary>
@@ -112,15 +71,15 @@ namespace ConsoleAppProject.App02
         {
             Console.WriteLine("\n\tWHO (World Health Organisation) weight status as illustrated below:\n");
 
-            CollorChanger.ChangeColor(40);
+            CollorChanger.ChangeColor("40");
             Console.WriteLine("\n\tExtremely Obese");
-            CollorChanger.ChangeColor(31);
+            CollorChanger.ChangeColor("31");
             Console.WriteLine("\tObese");
-            CollorChanger.ChangeColor(25);
+            CollorChanger.ChangeColor("25");
             Console.WriteLine("\tOverweight");
-            CollorChanger.ChangeColor(19);
+            CollorChanger.ChangeColor("19");
             Console.WriteLine("\tHealthy");
-            CollorChanger.ChangeColor(1);
+            CollorChanger.ChangeColor("1");
             Console.WriteLine("\tUnderWeight");
         }
 
@@ -129,15 +88,19 @@ namespace ConsoleAppProject.App02
         /// </summary>
         /// <param name="Weight">User's weight</param>
         /// <param name="Height">User's Height</param>
-        private static void PrintBMIDetails(int Weight, int Height)
+        private static void PrintBMIDetails()
         {
-            var UserBMI = Math.Round(Calculator.CalculateBmi(Weight, Height), 0);
-
-            CollorChanger.ChangeColor(UserBMI);
-
             Console.WriteLine("\n\n\tYou should see your BMI value highlighted on the chart.\n\t" +
                "If it is not there, is because your height or weight is higher than the average.\n\t " +
-               "Your BMI value is aproximately" + UserBMI);
+               "Your BMI value is aproximately" + Bmi);
+        }
+
+        /// <summary>
+        /// Calculate Bmi;
+        /// </summary>
+        public static void CalculateBmi()
+        {
+            Bmi = (int)Calculator.CalculateBmi(Weight, Height);
         }
 
         public static string GetDescription()

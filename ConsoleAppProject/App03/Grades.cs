@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
 
 namespace ConsoleAppProject.App03
 {
@@ -11,7 +12,11 @@ namespace ConsoleAppProject.App03
     /// </summary>
     public enum Grades
     {
-        [Description("Fail")]
+        [Description("No grade has been assigned yet")]
+        [Display(Name ="No Grade has been awarded.")]
+        NULL,
+        [Description("Failled")]
+        [Display(Name = "Fail")]
         F, 
         [Description("Third Class")]
         D, 

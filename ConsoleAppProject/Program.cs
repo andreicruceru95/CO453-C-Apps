@@ -1,6 +1,8 @@
 using ConsoleAppProject.App01;
 using ConsoleAppProject.App02;
+using ConsoleAppProject.App03;
 using System;
+using System.Collections.Generic;
 
 namespace ConsoleAppProject
 {
@@ -18,17 +20,22 @@ namespace ConsoleAppProject
         public const int APP03 = 3;
         public const int APP04 = 4;
         public const int APP05 = 5;
+
+        public static string[] Apps = new string[]
+        {
+            "Distance Convertor",
+            "BMI Calculator",
+            "Student Grades",
+            "Exit"
+        };
+
         public static void Main(string[] args)
         {
-            Console.ForegroundColor = ConsoleColor.White;
-            PrintHeading("BNU CO453 Applications Programming");
+            ConsoleHelper.PrintText("BNU CO453 Applications Programming", true);
 
             try
             {
-                Console.WriteLine("\tChose Application:");
-                ListApps();
-
-                ChoseApplication(Convert.ToInt32(Console.ReadLine()));
+                ChoseApplication(ConsoleHelper.SelectChoice("\tChose one of the following applications:",Apps));
             }
             catch(Exception ex)
             {
@@ -41,63 +48,32 @@ namespace ConsoleAppProject
             switch (AppNumber)
             {
                 case APP01:
-                    PrintHeading("Distance Converter");
+                    ConsoleHelper.PrintText("Distance Converter", true);
 
                     //Create an object
-                    _ = new DistanceConverter();
-                    DistanceConverter.RunDistanceConverter();
+                    DistanceConverter converter = new DistanceConverter();
+                    converter.RunDistanceConverter();
 
                     break;
 
                 case APP02:
-                    PrintHeading("BMI Converter");
-                    PrintDescription(BMI.GetDescription());
-
+                    ConsoleHelper.PrintText("BMI Converter", true);
+                    ConsoleHelper.PrintText(BMI.GetDescription(), false);
                     BMI.RunBmiConverter();
                     break;
 
                 case APP03:
+                    Student student = new Student();
+                    //student.DisplayName();
+                    break;
 
                 case APP04:
 
                 case APP05:
 
-                default:
-                    Console.WriteLine("\tThis number is not recognized. Try again!");
+                default:                    
                     break;
             }
-        }
-
-        /// <summary>
-        ///  Print a heading with app and author name.
-        /// </summary>
-        /// <param name="Title">App title</param>
-        private static void PrintHeading(string Title)
-        {
-            Console.WriteLine("\t\t--------------------------------------\n");
-            Console.WriteLine($"\t\t\t{Title}\n");
-            Console.WriteLine("\t\t\t   App by Andrei Cruceru              \n");
-            Console.WriteLine("\t\t--------------------------------------\n");
-            Console.Beep();
-        }
-
-        /// <summary>
-        /// Print each application description
-        /// </summary>
-        /// <param name="Description"></param>
-        private static void PrintDescription(string Description)
-        {
-            Console.WriteLine($"\n" +
-                $"{Description}");
-        }
-
-        /// <summary>
-        /// List the applications
-        /// </summary>
-        private static void ListApps()
-        {
-            Console.WriteLine("\t1. " + Apps.DistanceConverter + "\n\t2. " + Apps.BMIConverter +
-                "\n\t3. " + Apps.StudentMarks + "\n\t4. " + Apps.SocialNetwork + "\n\t5. " + Apps.RPS);
         }
 
     }

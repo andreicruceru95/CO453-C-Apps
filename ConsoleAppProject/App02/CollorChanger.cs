@@ -15,22 +15,23 @@ namespace ConsoleAppProject.App02
         /// Change the color of the text depending of the input value.
         /// </summary>
         /// <param name="ChartBmiValue">The input value.</param>
-        public static void ChangeColor(double ChartBmiValue)
+        public static void ChangeColor(string ChartBmiValue)
         {
-
-            if (ChartBmiValue > RED)
+            var value = Convert.ToInt32(ChartBmiValue);
+            
+            if (value > RED)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
             }
-            else if (ChartBmiValue > MAGENTA)
+            else if (value > MAGENTA)
             {
                 Console.ForegroundColor = ConsoleColor.Magenta;
             }
-            else if (ChartBmiValue > BLUE)
+            else if (value > BLUE)
             {
                 Console.ForegroundColor = ConsoleColor.Blue;
             }
-            else if (ChartBmiValue > GREEN)
+            else if (value > GREEN)
             {
                 Console.ForegroundColor = ConsoleColor.Green;
             }

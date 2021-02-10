@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleAppProject", "ConsoleAppProject\ConsoleAppProject.csproj", "{C0C498FD-1AE4-4CE0-A050-C1E08874D1C5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebUI", "WebUI\WebUI.csproj", "{1EC0CEF2-D3DD-4A6F-9910-37DE10D78CB4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebUI", "WebUI\WebUI.csproj", "{1EC0CEF2-D3DD-4A6F-9910-37DE10D78CB4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppTests", "AppTests\AppTests.csproj", "{84CD236E-1D9F-4D2B-8452-7F15B020C5E3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{1EC0CEF2-D3DD-4A6F-9910-37DE10D78CB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1EC0CEF2-D3DD-4A6F-9910-37DE10D78CB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1EC0CEF2-D3DD-4A6F-9910-37DE10D78CB4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84CD236E-1D9F-4D2B-8452-7F15B020C5E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84CD236E-1D9F-4D2B-8452-7F15B020C5E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84CD236E-1D9F-4D2B-8452-7F15B020C5E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84CD236E-1D9F-4D2B-8452-7F15B020C5E3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
