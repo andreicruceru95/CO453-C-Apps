@@ -3,51 +3,101 @@
 @{
     ViewData["Title"] = "Index";
 }
+<body>
+<div class="jumbotron ">
+    <div class="row">
+        <div class="col-4">
+            <div class="btn-group dropright float-left">
+                <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Actions
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item">Student App</a>
+                    <a class="dropdown-item">Statistics</a>
+                    <a class="dropdown-item" asp-action="Create">Create New</a>
+                </div>
+            </div>
+            @*<div class="row btn-group float-right" role="group">*@
 
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LastName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Mark)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Grade)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Mark)
-            </td>
-            <td>
-                @item.CalculateGrade().ToString()
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.StudentID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.StudentID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.StudentID">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+            @*</div>*@
+            @*<a class="btn btn-success text-right" asp-action="Create"></a>*@
+        </div>
+        <div class="col-8">
+            <h1 class="text-left">Control Pannel</h1>
+        </div>
+    </div>
+</div>
+<div class="jumbotron">
+    <div class="row">
+        <div class="col-sm-6">
+            <hr />
+            <h3 class="text-center">
+                Student List 
+            </h3>
+            <hr />
+            <p class="text-md-left" style="margin-left: 5%; margin-right:5%;">
+                The below represents a list of all the students registered. <br />
+                <br />
+                The data is saved inside a <strong>SQL Server Database</strong> and any changes you make are permanent.
+                <br />
+            </p>
+        </div>
+        <div class="col-sm-6">
+            <hr />
+            <h3 class="text-center">
+                Features
+            </h3>
+            <hr />
+            <p class="text-md-left" style="margin-left: 5%; margin-right:5%;">
+                You can Add a new record from the actions button at the top <br />
+                You can also Delete or Edit an individual record <br />
+                For more details about each individual, click Details.
+            </p>
+        </div>
+    </div>
+    <hr />
+    <table class="table table-hover">
+        <thead>
+            <tr class="table-info">
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.FirstName)
+                </th>
+                <th scope="col">
+                   @Html.DisplayNameFor(model => model.LastName)
+</th>
+                <th scope="col">
+                   @Html.DisplayNameFor(model => model.Mark)
+</th>
+                <th scope="col">
+                   @Html.DisplayNameFor(model => model.Grade)
+</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Mark)
+                    </td>
+                    <td>
+                        @item.CalculateGrade().ToString()
+                    </td>
+                    <td class="float-sm-right">
+                        <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.StudentID">Edit</a>
+                        <a class="btn btn-info" asp-action="Details" asp-route-id="@item.StudentID">Details</a>
+                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.StudentID">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+    </body>

@@ -3,45 +3,56 @@
 @{
     ViewData["Title"] = "Edit";
 }
-
-<h1>Edit</h1>
-
-<h4>Student</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="StudentID" />
-            <div class="form-group">
-                <label asp-for="FirstName" class="control-label"></label>
-                <input asp-for="FirstName" class="form-control" />
-                <span asp-validation-for="FirstName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LastName" class="control-label"></label>
-                <input asp-for="LastName" class="form-control" />
-                <span asp-validation-for="LastName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Mark" class="control-label"></label>
-                <input asp-for="Mark" class="form-control" />
-                <span asp-validation-for="Mark" class="text-danger"></span>
-            </div>
-            @*<div class="form-group">
-                <label asp-for="Grade" class="control-label"></label>
-                <select asp-for="Grade" class="form-control"></select>
-                <span asp-validation-for="Grade" class="text-danger"></span>
-            </div>*@
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+<div class="jumbotron text-monospace">
+    <div class="text-center">
+        <h1>Edit Details</h1>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
+    <br /><br />
+          <hr />
+    <div class="row">
+        <h4 class="col-md-4 text-left" style="margin-left:10%">@Model.FullName()</h4>        
+    </div> 
+    <hr />
+    <br /><br />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="StudentID" />
+                <div class="form-group">
+                    <label asp-for="FirstName" class="control-label"></label>
+                    <input asp-for="FirstName" class="form-control" />
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="LastName" class="control-label"></label>
+                    <input asp-for="LastName" class="form-control" />
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Mark" class="control-label"></label>
+                    <input asp-for="Mark" class="form-control" />
+                    <span asp-validation-for="Mark" class="text-danger"></span>
+                </div>
+                @*<div class="form-group">
+                    <label asp-for="Grade" class="control-label"></label>
+                    <select asp-for="Grade" class="form-control"></select>
+                    <span asp-validation-for="Grade" class="text-danger"></span>
+                </div>*@
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-6 text-left">
+                            <input type="submit" value="Save" class="btn btn-primary" />
+                        </div>
+                        <div class="col-6 text-right">
+                            <a class="btn btn-warning" asp-action="Index">Cancel</a>
+                        </div>
+                    </div>
+                    
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
 @section Scripts {

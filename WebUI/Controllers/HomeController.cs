@@ -12,24 +12,6 @@ namespace WebUI.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult StudentApp()
-        {
-            return View();
-        }
-        public IActionResult StudentDetails()
-        {
-            return View();
-        }
-        public IActionResult NewStudent()
-        {
-            return View();
-        }
-        public IActionResult DistanceConverter()
-        {
-            DistanceConverter converter = new DistanceConverter();
-            return View(converter);
-        }
-
         public IActionResult Index()
         {
             return View();

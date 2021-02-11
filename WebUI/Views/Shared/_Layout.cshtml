@@ -9,7 +9,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark border-bottom box-shadow mb-3" style="background-color: #334648;">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">WebUI</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -20,10 +20,10 @@
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                     </ul>
                 </div>
@@ -36,10 +36,65 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    @*<footer class="border-top footer text-muted">
+        
+    </footer>*@
+    <footer class="border-top text-muted" style="color:darkgray; background-color:#334648; bottom:0">
         <div class="container">
-            &copy; 2021 - WebUI - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="row">
+                        <h3 style="margin-left:30%">
+                            About
+                        </h3>
+                    </div>
+                    <div class="row">
+                        <p style="margin-left:5%; margin-right:5%">
+                            Application Programming CO453 is a module part of the Data Science 
+                            Course. In this module we learn how to program in C# but also using 
+                            .NET framework.
+                            For some applications we are using ASP.NET to create a web user
+                            interface to display data.
+                            Some applications are using SQL Server to store and retrieve data from 
+                            the server.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <h3 class="text-center" style="color:inherit;">
+                        Apps
+                    </h3>
+                    <ul style="color:wheat">
+                        <li><a href="">Distance Converter</a> </li>
+                        <li><a href="">BMI Calculator</a></li>
+                        <li><a href="">Student Marks</a></li>
+                        <li><a href="">Social Network</a> </li>
+                        <li><a href="">RPS Game</a></li>
+                        <li><a href="">Foxes and Rabits</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-3">
+                    <h3 class="text-center">
+                        Contact
+                    </h3>
+                    <p class="">
+                        <hr />
+                        Author: Andrei Cruceru<hr />
+                        Student ID: 21807459<hr />
+                        Email: andrei.cruceru95@gmail.com
+                        <hr />
+                    </p>
+                    
+                </div>
+            </div>
         </div>
+        <hr />
+        <br /><br />
+              <h5 style="margin-left:30%">
+                  &copy; 2021 - WebUI - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                  <br /><br />
+              </h5>
+        
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

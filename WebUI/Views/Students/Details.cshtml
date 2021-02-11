@@ -4,33 +4,44 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
-
-<div>
-    <h4>Student</h4>
+<div class="jumbotron text-monospace">
+    <h1 class="text-center">Details</h1>
+    <br /><br />
     <hr />
+    <h4 class="text-left" style="margin-left:10%">@Model.FullName()</h4>
+    <hr />
+    <br /><br />
     <dl class="row">
-        <dt class = "col-sm-3">
+        <dt class="col-sm-3">
             Full Name
         </dt>
-        <dd class = "col-sm-9">
+        <dd class="col-sm-9">
             @Model.FullName()
-        </dd>        
-        <dt class = "col-sm-3">
+        </dd>
+        <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.Mark)
         </dt>
-        <dd class = "col-sm-9">
+        <dd class="col-sm-9">
             @Html.DisplayFor(model => model.Mark)
         </dd>
-        <dt class = "col-sm-3">
+        <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.Grade)
         </dt>
-        <dd class = "col-sm-9">
-            @Model.CalculateGrade()
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Grade)
         </dd>
     </dl>
+    <div class="row">
+        <div class="col-sm-3">
+            <a class="float-left btn btn-warning" asp-action="Edit" asp-route-id="@Model.StudentID">Edit</a>
+        </div>
+        <div class="col-sm-3">
+            <a class="float-left btn btn-success" asp-action="Index">Back to List</a>
+        </div>
+    </div>
 </div>
-<div>
+@*<div>
+    
     <a asp-action="Edit" asp-route-id="@Model.StudentID">Edit</a> |
     <a asp-action="Index">Back to List</a>
-</div>
+</div>*@
