@@ -15,16 +15,20 @@ namespace ConsoleAppProject.App03
         [Description("No grade has been assigned yet")]
         [Display(Name ="No Grade has been awarded.")]
         NULL,
-        [Description("Failled")]
-        [Display(Name = "Fail")]
+        [Description("Not Passed")]
+        [Display(Name = "Failed")]
         F, 
         [Description("Third Class")]
+        [Display(Name = "Third Class")]
         D, 
         [Description("Lower Second")]
-        C, 
+        [Display(Name = "Lower Second")]
+        C,
+        [Display(Name = "Upper Second")]
         [Description("Upper Second")]
         B, 
         [Description("First Class")]
+        [Display(Name = "First Class")]
         A
     }
 }

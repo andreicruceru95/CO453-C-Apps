@@ -45,23 +45,20 @@ namespace ConsoleAppProject.App03
                 return Grades.C;
             else if (Mark < A_MIN)
                 return Grades.B;
-            else if (Mark >= A_MIN)
+            else //if (Mark >= A_MIN)
                 return Grades.A;
-            else
-                return Grades.NULL;
+            //else
+               // return Grades.NULL;
         }
 
-        public void DisplayGradeName()
-        {
-            //Grades GradeTest = Grades.NULL;
-
-            //var GradeTestDisplayName = GradeTest.GetAttribute<DisplayAttribute>();
-            //Console.WriteLine("What grade did you get?");
-            //Console.WriteLine(GradeTestDisplayName.Name);
-
-
-            //var GradeTest2 = GradeTest.GetAttribute<DescriptionAttribute>();
-            //Console.WriteLine(GradeTest2.Description);
-        }
-    }
+    //    public void Do()
+    //    {
+    //        //EnumHelper<Grades>.GetName(Grade);
+    //    }
+    //    public string DisplayGradeName(Grades Grade)
+    //    {
+    //        var DisplayName = Grade.GetAttribute<DisplayAttribute>();
+    //        return DisplayName.Name;
+    //    }
+    //}
 }

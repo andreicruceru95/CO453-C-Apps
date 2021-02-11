@@ -3,6 +3,7 @@ using ConsoleAppProject.App02;
 using ConsoleAppProject.App03;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace ConsoleAppProject
 {
@@ -62,9 +63,7 @@ namespace ConsoleAppProject
                     BMI.RunBmiConverter();
                     break;
 
-                case APP03:
-                    Student student = new Student();
-                    //student.DisplayName();
+                case APP03:                    
                     break;
 
                 case APP04:

@@ -28,7 +28,7 @@
             @Html.DisplayNameFor(model => model.Grade)
         </dt>
         <dd class="col-sm-9">
-            @Html.DisplayFor(model => model.Grade)
+            @Model.CalculateGrade()
         </dd>
     </dl>
     <div class="row">

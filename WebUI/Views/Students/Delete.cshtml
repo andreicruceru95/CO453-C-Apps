@@ -36,7 +36,7 @@
                 @Html.DisplayNameFor(model => model.Grade)
             </dt>
             <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.Grade)
+                @Model.CalculateGrade()
             </dd>
         </dl>
         <div class="row">
