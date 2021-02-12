@@ -11,9 +11,9 @@ namespace ConsoleAppProject
         /// </summary>
         /// <param name="text">string input</param>
         /// <param name="title">type of text</param>
-        public static void PrintText(string text, bool title)
+        public static void PrintText(string text, bool isTitle)
         {
-            if(title)
+            if(isTitle)
             {
                 Console.WriteLine("\t\t--------------------------------------\n");
                 Console.WriteLine($"\t\t\t{text}\n");

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ConsoleAppProject.App01
@@ -24,25 +25,27 @@ namespace ConsoleAppProject.App01
         public Dictionary<UnitsEnum, double> Values = new Dictionary<UnitsEnum, double>();
         public string[] Units = new string[]
         {
-        "Feet", "Meter", "Kilometer", "Mile", "Micrometer", "Milimeter",
-        "Nautical Mile", "Centimeter", "Nanometer", "Yard", "Inch"
+            EnumHelper<UnitsEnum>.GetName(UnitsEnum.FEET),
+            EnumHelper<UnitsEnum>.GetName(UnitsEnum.METER),
+            EnumHelper<UnitsEnum>.GetName(UnitsEnum.KILOMETRE),
+            EnumHelper<UnitsEnum>.GetName(UnitsEnum.MILE),
+            EnumHelper<UnitsEnum>.GetName(UnitsEnum.MICROMETRES),
+            EnumHelper<UnitsEnum>.GetName(UnitsEnum.MILIMETRE),
+            EnumHelper<UnitsEnum>.GetName(UnitsEnum.NAUTICAL_MILE),
+            EnumHelper<UnitsEnum>.GetName(UnitsEnum.CENTIMETER),
+            EnumHelper<UnitsEnum>.GetName(UnitsEnum.NANOMETRE),
+            EnumHelper<UnitsEnum>.GetName(UnitsEnum.YARD),
+            EnumHelper<UnitsEnum>.GetName(UnitsEnum.INCH)
         };
-        public double[] ConvertedUnits = new double[]
-        {
-            0.000189394, 0.000621371, 0.621371, 1, 6.2137e-10, 6.2137e-7,
-            1.15078, 6.2137e-6, 6.2137e-13, 0.000568182, 1.5783e-5
-        };
+        
         [BindProperty]
         public double Amount { get; set; }
         [BindProperty]
-        public UnitsEnum FromValue { get; set; } = UnitsEnum.MILE;
+        public UnitsEnum FromValue { get; set; }
         [BindProperty]
-        public UnitsEnum ToValue { get; set; } = UnitsEnum.MILE;
+        public UnitsEnum ToValue { get; set; }
         [BindProperty]
         public double Result { get; set; } = 0;
-
-        public int FromValueInt { get; set; }
-        public int ToValueInt { get; set; }
         
         public DistanceConverter()
         {
@@ -57,30 +60,12 @@ namespace ConsoleAppProject.App01
             Values.Add(UnitsEnum.INCH, 1.5783e-5);
             Values.Add(UnitsEnum.NAUTICAL_MILE, 1.15078);
             Values.Add(UnitsEnum.MILE, 1);
-        }
-        /// <summary>
-        /// On form submit this method will be called.
-        /// The method does not return anything, but in exchange will calculate the result,
-        /// that is displayed on the screen.
-        /// </summary>
-        public void OnPost()
-        {
-           
-        }
+        }      
 
+        //Calculate and return the result.
         public double GetResult()
         {
-            return Math.Round((ConvertUnit(FromValue) / ConvertUnit(ToValue) * Amount), NUMBER_OF_DECIMALS);
-        }
-
-        /// <summary>
-        /// Return the covnversion in miles of an input value.
-        /// </summary>
-        /// <param name="choice">The value to be converted.</param>
-        /// <returns>Return a value converted</returns>
-        public double ConvertUnit(UnitsEnum choice)
-        {
-           return Values[choice];
+            return Math.Round((Values[FromValue] / Values[ToValue] * Amount), NUMBER_OF_DECIMALS);
         }
 
         /// <summary>
@@ -89,48 +74,19 @@ namespace ConsoleAppProject.App01
         public void RunDistanceConverter()
         {
             GetValues();
-            CalculateResult();
-
-            Console.WriteLine("\t" + Amount + " " + TranslateUnit(FromValueInt) +
-                            " translates to " + Math.Round(Result, NUMBER_OF_DECIMALS) + " " + TranslateUnit(ToValueInt));
+            Console.WriteLine($"\t{Amount} {EnumHelper<UnitsEnum>.GetName(FromValue)} " +
+                $"translates to {GetResult()} {EnumHelper<UnitsEnum>.GetName(ToValue)}");
         }
 
         /// <summary>
-        /// Get input value from the user
+        /// Values.ElementAt(index).key returns the key associated to the index number that the
+        /// user will chose.
         /// </summary>
         public void GetValues()
         {
-            FromValueInt = ConsoleHelper.SelectChoice("Select your unit from the list:", Units);
-            ToValueInt = ConsoleHelper.SelectChoice("Select your unit from the list:", Units);
+            FromValue= Values.ElementAt(ConsoleHelper.SelectChoice("Select your FROM unit from the list:", Units) - 1).Key;
+            ToValue = Values.ElementAt(ConsoleHelper.SelectChoice("Select your TO unit from the list:", Units) - 1).Key;
             Amount = ConsoleHelper.InputNumber("Please enter an amount > ");
-        }
-
-        /// <summary>
-        /// Calculate the result
-        /// </summary>
-        public void CalculateResult()
-        {
-            Result = (ConvertUnit(FromValueInt) / ConvertUnit(ToValueInt)) * Amount;
-        }
-
-        /// <summary>
-        /// Return the value of each unit in miles.
-        /// </summary>
-        /// <param name="choice">Represents the user's input.</param>
-        /// <returns>Return the value of the input in miles.</returns>
-        public double ConvertUnit(int choice)
-        {
-            return Convert.ToDouble(ConvertedUnits.GetValue(choice - 1));
-        }
-
-        /// <summary>
-        /// Translate the unit from int data type to string data type.
-        /// </summary>
-        /// <param name="unitNumber">The input integer of the user.</param>
-        /// <returns>The respresentation of the integer in String type.</returns>
-        public string TranslateUnit(int unitNumber)
-        {
-            return Units.GetValue(unitNumber - 1).ToString();
         }
    }
 }

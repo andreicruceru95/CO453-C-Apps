@@ -45,10 +45,10 @@ namespace ConsoleAppProject.App03
                 return Grades.C;
             else if (Mark < A_MIN)
                 return Grades.B;
-            else //if (Mark >= A_MIN)
+            else if (Mark >= A_MIN)
                 return Grades.A;
-            //else
-               // return Grades.NULL;
+            else
+                return Grades.NULL;
         }
 
     //    public void Do()
