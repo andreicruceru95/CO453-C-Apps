@@ -21,6 +21,7 @@ namespace ConsoleAppProject
         public const int APP03 = 3;
         public const int APP04 = 4;
         public const int APP05 = 5;
+        public static BMI bmi = new BMI();
 
         public static string[] Apps = new string[]
         {
@@ -59,8 +60,8 @@ namespace ConsoleAppProject
 
                 case APP02:
                     ConsoleHelper.PrintText("BMI Converter", true);
-                    ConsoleHelper.PrintText(BMI.GetDescription(), false);
-                    BMI.RunBmiConverter();
+                    ConsoleHelper.PrintText(bmi.GetDescription(), false);
+                    bmi.RunBmiConverter();
                     break;
 
                 case APP03:                    

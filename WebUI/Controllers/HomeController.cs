@@ -7,12 +7,19 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebUI.Models;
 using ConsoleAppProject.App01;
+using ConsoleAppProject.App02;
 
 namespace WebUI.Controllers
 {
     public class HomeController : Controller
     {
         DistanceConverter converter = new DistanceConverter();
+        BMI bmi = new BMI();
+        public IActionResult BMICalculator(BMI bmi)
+        {
+            return View(bmi);
+        }
+
         public IActionResult DistanceConverter(DistanceConverter converter)
         {
             return View(converter);

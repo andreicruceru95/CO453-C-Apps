@@ -1,0 +1,55 @@
+﻿@model ConsoleAppProject.App02.BMI
+@{
+    ViewData["Title"] = "BMICalculator";
+}
+<div class="container">
+    <div class="jumbotron">
+        <div>
+            <h1 class="text-center">
+                Body Mass Index Calculator
+            </h1>
+        </div>
+        <hr />
+        <br />
+        <div>
+            <p style="margin-left:10%; margin-right:10%">
+                Your BMI, or Body Mass Index, is a measure of your weight compared to your height. Accurate assessments of obesity are important, as being overweight or obese significantly increases your risk of a variety of medical conditions including type 2 diabetes, heart disease and cancer.
+
+                For most adults, BMI gives a good estimate of your weight-related health risks. If your BMI is over 35, your weight is definitely putting your health at risk, regardless of the factors below. However, there are some situations where BMI may underestimate or overestimate these risks in the 25-35 BMI range. The main ones are:
+                <ul>
+                    <li>Children</li>
+                    <li>Pregnant women.</li>
+                    <li>Muscle Builders</li>
+                    <li>BAME: Black, Asian and other minority ethnic groups.</li>
+                </ul>
+            </p>
+        </div>        
+    </div>
+    <div class="jumbotron">
+        <div class="row">
+            <div class="col-sm-12 col-md-6">
+                <form method="post">
+                    <div class="form-group">
+                        <label for="amount">Height</label>
+                        <input class="form-control" asp-for="Height" placeholder="Your amount.." required />
+                    </div>
+                    <div class="form-group">
+                        <label for="converted">Weight</label>
+                        <input class="form-control" asp-for="Weight" required />                       
+                    </div>
+                    @*<div class="form-group">
+                        <label for="toConvert">Select the unit value you want to convert to!</label>
+                        <select class="form-control" asp-for="ToValue" asp-items="Html.GetEnumSelectList<UnitsEnum>()" required>
+                            <option value="">---none---</option>
+                        </select>
+                    </div>*@
+                    <button type="submit" class="btn" style="background-color:forestgreen;">Calculate</button>
+                </form>
+            </div>
+            <div class="col-sm-12 col-md-6">
+                <h1 class="text-center">Result</h1>
+                <h1 class="text-left" style="margin-left:10%">@Model.CalcTest()</h1>
+            </div>
+        </div>
+    </div>
+</div>

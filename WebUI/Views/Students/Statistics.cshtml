@@ -16,6 +16,33 @@
 
             </p>
         </div>
+        <div class="col-sm-6">
+
+        </div>
+    </div>
+    <hr/>
+    <div class="row">
+        <div class="col-sm-6 col-md-4">
+            @{ 
+                <h4>The amount of students @Model.Count()</h4>
+            }
+        </div>
+        <div class="col-sm-6 col-md-4">
+            @{ 
+                int totalMarks = 0;
+                foreach (var item in Model)
+                {
+                    totalMarks += item.Mark;
+                }
+                totalMarks = totalMarks / Model.Count();
+
+                <h4> Average mark is @totalMarks</h4>
+            }
+        </div>
+        <div class="col-sm-6 col-md-4">
+
+        </div>
+        
     </div>
 
 </div>

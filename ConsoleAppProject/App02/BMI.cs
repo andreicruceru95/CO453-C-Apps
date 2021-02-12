@@ -8,18 +8,18 @@ namespace ConsoleAppProject.App02
     /// <author>
     /// Andrei Cruceru version 1.3
     /// </author>
-    public static class BMI
+    public class BMI
     {
         public const double FEET_IN_CM = 30.48;
         public const double INCH_IN_CM = 2.54;
         public const double POUND_IN_KG = 0.453592;
         public const double STONE_IN_KG = 6.35029;
 
-        public static int Weight { get; set; }
-        public static int Height { get; set; }
-        public static int Bmi { get; set; }
+        public int Weight { get; set; } = 0;
+        public int Height { get; set; } = 0;
+        public int Bmi { get; set; } = 0;
 
-        public static string[] UnitsType = new string[]
+        public string[] UnitsType = new string[]
         {
             "Imperial",
             "Metric",
@@ -28,7 +28,7 @@ namespace ConsoleAppProject.App02
         /// <summary>
         /// Run the application in steps.
         /// </summary>
-        public static void RunBmiConverter()
+        public void RunBmiConverter()
         {
             GetInput();
             CalculateBmi();
@@ -42,7 +42,7 @@ namespace ConsoleAppProject.App02
         /// If user choses metric, get weight in kilograms and height in centimeters.
         /// If user choses imperial, get weight in pounds and height in feet and inches for more precision.
         /// </summary>
-        private static void GetInput()
+        private void GetInput()
         {
             switch (ConsoleHelper.SelectChoice("Please chose a unit type from the following", UnitsType))
             {
@@ -67,7 +67,7 @@ namespace ConsoleAppProject.App02
         /// <summary>
         /// Explain the chart and display user's bmi.
         /// </summary>
-        private static void PrintChartDetails()
+        private void PrintChartDetails()
         {
             Console.WriteLine("\n\tWHO (World Health Organisation) weight status as illustrated below:\n");
 
@@ -88,22 +88,27 @@ namespace ConsoleAppProject.App02
         /// </summary>
         /// <param name="Weight">User's weight</param>
         /// <param name="Height">User's Height</param>
-        private static void PrintBMIDetails()
+        private void PrintBMIDetails()
         {
             Console.WriteLine("\n\n\tYou should see your BMI value highlighted on the chart.\n\t" +
                "If it is not there, is because your height or weight is higher than the average.\n\t " +
                "Your BMI value is aproximately" + Bmi);
         }
 
+        public int CalcTest()
+        {
+            return (int)Calculator.CalculateBmi(Weight, Height);
+        }
+
         /// <summary>
         /// Calculate Bmi;
         /// </summary>
-        public static void CalculateBmi()
+        public void CalculateBmi()
         {
             Bmi = (int)Calculator.CalculateBmi(Weight, Height);
         }
 
-        public static string GetDescription()
+        public string GetDescription()
         {
             return "\t\tYour BMI, or Body Mass Index, is a measure of your weight compared to your height.\n" +
                 "\t Accurate assessments of obesity are important, as being overweight or obese significantly\n" +

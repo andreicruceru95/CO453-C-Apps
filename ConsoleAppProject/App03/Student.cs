@@ -22,14 +22,6 @@ namespace ConsoleAppProject.App03
         public int Mark { get; set; }
         public Grades Grade { get; set; }
 
-
-        //public Student(int StudentID, string FirstName, string LastName)
-        //{
-        //    this.StudentID = StudentID;
-        //    this.FirstName = FirstName;
-        //    this.LastName = LastName;
-        //}
-
         public string FullName()
         {
             return $"{FirstName} {LastName}";
@@ -50,15 +42,5 @@ namespace ConsoleAppProject.App03
             else
                 return Grades.NULL;
         }
-
-    //    public void Do()
-    //    {
-    //        //EnumHelper<Grades>.GetName(Grade);
-    //    }
-    //    public string DisplayGradeName(Grades Grade)
-    //    {
-    //        var DisplayName = Grade.GetAttribute<DisplayAttribute>();
-    //        return DisplayName.Name;
-    //    }
     }
 }
