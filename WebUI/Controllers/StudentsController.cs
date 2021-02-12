@@ -25,6 +25,11 @@ namespace WebUI.Controllers
             return View(await _context.Students.ToListAsync());
         }
 
+        public async Task<IActionResult> Statistics()
+        {
+            return View(await _context.Students.ToListAsync());
+        }
+
         // GET: Students/Details/5
         public async Task<IActionResult> Details(int? id)
         {

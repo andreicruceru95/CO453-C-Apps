@@ -12,6 +12,11 @@ namespace WebUI.Controllers
 {
     public class HomeController : Controller
     {
+        DistanceConverter converter = new DistanceConverter();
+        public IActionResult DistanceConverter(DistanceConverter converter)
+        {
+            return View(converter);
+        }
         public IActionResult Index()
         {
             return View();
