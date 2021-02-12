@@ -59,9 +59,18 @@ namespace ConsoleAppProject
         /// <returns>the number.</returns>
         public static double InputNumber(string prompt)
         {
-            Console.Write($"\n\t{prompt}");
+            try
+            {
+                Console.Write($"\n\t{prompt}");
 
-            return Convert.ToDouble(Console.ReadLine());
+                return Convert.ToDouble(Console.ReadLine());
+            }
+            catch(Exception)
+            {
+                Console.WriteLine("\tPlease type in a number!");
+
+                return InputNumber(prompt);
+            }
         }
 
         /// <summary>

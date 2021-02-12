@@ -43,7 +43,6 @@ namespace ConsoleAppProject.App01
 
         public int FromValueInt { get; set; }
         public int ToValueInt { get; set; }
-        public bool hasValues { get; set; }
         
         public DistanceConverter()
         {
@@ -66,7 +65,12 @@ namespace ConsoleAppProject.App01
         /// </summary>
         public void OnPost()
         {
-           Result = Math.Round((ConvertUnit(FromValue) / ConvertUnit(ToValue) * Amount), NUMBER_OF_DECIMALS);
+           
+        }
+
+        public double GetResult()
+        {
+            return Math.Round((ConvertUnit(FromValue) / ConvertUnit(ToValue) * Amount), NUMBER_OF_DECIMALS);
         }
 
         /// <summary>

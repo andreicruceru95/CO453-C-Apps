@@ -60,5 +60,5 @@ namespace ConsoleAppProject.App03
     //        var DisplayName = Grade.GetAttribute<DisplayAttribute>();
     //        return DisplayName.Name;
     //    }
-    //}
+    }
 }
