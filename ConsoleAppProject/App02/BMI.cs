@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 namespace ConsoleAppProject.App02
 {
     /// <summary>
@@ -15,8 +16,19 @@ namespace ConsoleAppProject.App02
         public const double POUND_IN_KG = 0.453592;
         public const double STONE_IN_KG = 6.35029;
 
-        public int Weight { get; set; } = 0;
-        public int Height { get; set; } = 0;
+        [BindProperty]
+        public int Weight { get; set; }
+        [BindProperty]
+        public int WeightInStones { get; set; }
+        [BindProperty]
+        public int WeightInPounds { get; set; }
+
+        [BindProperty]
+        public int Height { get; set; }
+        [BindProperty]
+        public int HeightInFeet { get; set; }
+        [BindProperty]
+        public int HeightInInches { get; set; }
         public int Bmi { get; set; } = 0;
 
         public string[] UnitsType = new string[]
@@ -31,7 +43,7 @@ namespace ConsoleAppProject.App02
         public void RunBmiConverter()
         {
             GetInput();
-            CalculateBmi();
+            CalculateBmi(false);
             Chart.CreateChart(Weight, Height);
             PrintChartDetails();
             PrintBMIDetails();
@@ -95,17 +107,23 @@ namespace ConsoleAppProject.App02
                "Your BMI value is aproximately" + Bmi);
         }
 
-        public int CalcTest()
-        {
-            return (int)Calculator.CalculateBmi(Weight, Height);
-        }
+        //public int CalcTest()
+        //{
+        //    return (int)Calculator.CalculateBmi(Weight, Height);
+        //}
 
         /// <summary>
         /// Calculate Bmi;
         /// </summary>
-        public void CalculateBmi()
+        public int CalculateBmi(bool isMetric)
         {
+            if(!isMetric)
+            {
+                Weight = Convert.ToInt32((WeightInPounds * POUND_IN_KG) + (WeightInStones * STONE_IN_KG));
+                Height = Convert.ToInt32((HeightInFeet * FEET_IN_CM) + (HeightInInches * INCH_IN_CM));
+            }
             Bmi = (int)Calculator.CalculateBmi(Weight, Height);
+            return Bmi;
         }
 
         public string GetDescription()

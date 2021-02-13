@@ -26,30 +26,69 @@
         </div>        
     </div>
     <div class="jumbotron">
-        <div class="row">
+        <div class="row" id="bmiForm">
             <div class="col-sm-12 col-md-6">
-                <form method="post">
-                    <div class="form-group">
-                        <label for="amount">Height</label>
-                        <input class="form-control" asp-for="Height" placeholder="Your amount.." required />
+                <div class="row">
+                    <div class="col-sm-12 col-md-6">
+                        <p>Calculate using metric values</p>
                     </div>
-                    <div class="form-group">
-                        <label for="converted">Weight</label>
-                        <input class="form-control" asp-for="Weight" required />                       
+                    <div class="col-sm-12 col-md-6 text-center">
+                        <input type="button" class="btn btn-info" @*aria-expanded="false" aria-controls="metric"
+                               data-target="#metric" data-toggle="collapse"*@ value="Metric"
+                               onclick="javascript: $('#imperial').hide();javascript: $('#metric').show();" />
                     </div>
-                    @*<div class="form-group">
-                        <label for="toConvert">Select the unit value you want to convert to!</label>
-                        <select class="form-control" asp-for="ToValue" asp-items="Html.GetEnumSelectList<UnitsEnum>()" required>
-                            <option value="">---none---</option>
-                        </select>
-                    </div>*@
-                    <button type="submit" class="btn" style="background-color:forestgreen;">Calculate</button>
-                </form>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 col-md-6">
+                        <p>Calculate using imperial values</p>
+                    </div>
+                    <div class="col-sm-12 col-md-6 text-center">
+                        <input type="button" class="btn btn-info" @*aria-expanded="false" aria-controls="imperial"
+                               data-target="#imperial" data-toggle="collapse"*@ value="Imperial"
+                               onclick="javascript: $('#imperial').show();javascript: $('#metric').hide();" />
+                    </div>
+                </div>
             </div>
             <div class="col-sm-12 col-md-6">
+                <div class="row collapse" id="metric">
+                    <form method="post">
+                        <div class="form-group">
+                            <label for="amount">Height</label>
+                            <input class="form-control" asp-for="Height" placeholder="Centimeters" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="converted">Weight</label>
+                            <input class="form-control" asp-for="Weight" placeholder="Kilograms" required />
+                        </div>
+                        <button type="submit" class="btn" style="background-color:forestgreen;"
+                                onclick="javascript: $('#metricResult').show()">
+                            Calculate
+                        </button>
+                    </form>
+                    <div class="row" id="metricResult" style="display:none;">The result is: @Model.CalculateBmi(true)</div>
+                </div>
+                <div class="row collapse" id="imperial">
+                    <form method="post">
+                        <div class="form-group">
+                            <label for="amount">Height</label>
+                            <input class="form-control" asp-for="HeightInFeet" placeholder="Feet" required />
+                            <input class="form-control" asp-for="HeightInInches" placeholder="Inches" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="converted">Weight</label>
+                            <input class="form-control" asp-for="WeightInStones" placeholder="Stones" required />
+                            <input class="form-control" asp-for="WeightInPounds" placeholder="Pounds" required />
+                        </div>
+                        <button type="submit" class="btn" style="background-color:forestgreen;"
+                                onclick="javascript: $('#imperialResult').show()">Calculate</button>
+                    </form>
+                    <div class="row" id="imperialResult" style="display:none;">The result is: @Model.CalculateBmi(false)</div>
+                </div>
+            </div>
+            @*<div class="col-sm-12 col-md-6">
                 <h1 class="text-center">Result</h1>
                 <h1 class="text-left" style="margin-left:10%">@Model.CalcTest()</h1>
-            </div>
+            </div>*@
         </div>
     </div>
 </div>

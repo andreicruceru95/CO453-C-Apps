@@ -14,10 +14,10 @@ namespace WebUI.Controllers
     public class HomeController : Controller
     {
         DistanceConverter converter = new DistanceConverter();
-        BMI bmi = new BMI();
-        public IActionResult BMICalculator(BMI bmi)
+        BMI BmiCalculator = new BMI();
+        public IActionResult BMICalculator(BMI BmiCalculator)
         {
-            return View(bmi);
+            return View(BmiCalculator);
         }
 
         public IActionResult DistanceConverter(DistanceConverter converter)
