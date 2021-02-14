@@ -48,10 +48,10 @@ namespace ConsoleAppProject.App02
         public void RunBmiConverter()
         {
             GetInput();
-            CalculateBmi(false);
+            Console.WriteLine(CalculateBmi());
             Chart.CreateChart(Weight, Height);
             PrintChartDetails();
-            PrintBMIDetails();
+            //PrintBMIDetails();
         }
 
         /// <summary>
@@ -100,17 +100,17 @@ namespace ConsoleAppProject.App02
             Console.WriteLine($"\n\t{EnumHelper<Categories>.GetName(Categories.UNDERWEIGHT)}");
         }
 
-        /// <summary>
-        /// Print details about the user's bmi.
-        /// </summary>
-        /// <param name="Weight">User's weight</param>
-        /// <param name="Height">User's Height</param>
-        private void PrintBMIDetails()
-        {
-            Console.WriteLine("\n\n\tYou should see your BMI value highlighted on the chart.\n\t" +
-               "If it is not there, is because your height or weight is higher than the average.\n\t " +
-               "Your BMI value is aproximately" + Bmi);
-        }
+        ///// <summary>
+        ///// Print details about the user's bmi.
+        ///// </summary>
+        ///// <param name="Weight">User's weight</param>
+        ///// <param name="Height">User's Height</param>
+        //private void PrintBMIDetails()
+        //{
+        //    Console.WriteLine("\n\n\tYou should see your BMI value highlighted on the chart.\n\t" +
+        //       "If it is not there, is because your height or weight is higher than the average.\n\t " +
+        //       "Your BMI value is aproximately" + Bmi);
+        //}
 
         //public int CalcTest()
         //{
@@ -120,17 +120,18 @@ namespace ConsoleAppProject.App02
         /// <summary>
         /// Calculate Bmi;
         /// </summary>
-        public string CalculateBmi(bool isMetric)
+        public string CalculateBmi()
         {
-            if(!isMetric)
-            {
-                Weight = Convert.ToInt32((WeightInPounds * POUND_IN_KG) + (WeightInStones * STONE_IN_KG));
-                Height = Convert.ToInt32((HeightInFeet * FEET_IN_CM) + (HeightInInches * INCH_IN_CM));
+            //if(caseNo == 1)
+            //{
+            //    Weight = Convert.ToInt32((WeightInPounds * POUND_IN_KG) + (WeightInStones * STONE_IN_KG));
+            //    Height = Convert.ToInt32((HeightInFeet * FEET_IN_CM) + (HeightInInches * INCH_IN_CM));
                
-            }
+            //}
+
             Bmi = (int)Calculator.CalculateBmi(Weight, Height);
             var Details = CalculateCategory(Bmi);
-            return $"Your result is {Bmi}. You are in the {Details.Item1} range. {Details.Item2}";
+            return $"\t\tYour BMI is {Bmi}. You are in the {Details.Item1} range.\n{Details.Item2}";
         }
 
         public string GetDescription()

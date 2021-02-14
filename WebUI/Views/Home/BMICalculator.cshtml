@@ -63,7 +63,7 @@
                             <label for="converted">Weight</label>
                             <input class="form-control" asp-for="Weight" placeholder="Kilograms" required />
                         </div>
-                        <button asp-action="BMIResult" asp-route-value="@Model.CalculateBmi(true)" type="submit" class="btn" style="background-color:forestgreen;">Calculate</button>
+                        <button asp-action="BMIResult" asp-route-value="@Model.CalculateBmi()" type="submit" class="btn" style="background-color:forestgreen;">Calculate</button>
                     </form>
                 </div>
                 <div class="row collapse" id="imperial">
@@ -78,7 +78,7 @@
                             <input class="form-control" asp-for="WeightInStones" placeholder="Stones" required />
                             <input class="form-control" asp-for="WeightInPounds" placeholder="Pounds" required />
                         </div>
-                        <button asp-action="BMIResult" asp-route-value="@Model.CalculateBmi(false)" type="submit" class="btn" style="background-color:forestgreen;">Calculate</button>
+                        <button asp-action="BMIResult" asp-route-value="@Model.CalculateBmi()" type="submit" class="btn" style="background-color:forestgreen;">Calculate</button>
                     </form>                    
                 </div>
             </div>            
