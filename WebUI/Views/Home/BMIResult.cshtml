@@ -1,0 +1,40 @@
+﻿@model ConsoleAppProject.App02.BMI;
+@{
+    ViewData["Title"] = "Result";
+}
+<div class="container">
+    <div class="jumbotron">
+        <div>
+            <h1 class="text-center">
+                Body Mass Index Calculator
+            </h1>
+        </div>
+        <hr />
+        <br />
+        <div>
+            <p style="margin-left:10%; margin-right:10%">
+                Your BMI, or Body Mass Index, is a measure of your weight compared to your height. Accurate assessments of obesity are important, as being overweight or obese significantly increases your risk of a variety of medical conditions including type 2 diabetes, heart disease and cancer.
+
+                For most adults, BMI gives a good estimate of your weight-related health risks. If your BMI is over 35, your weight is definitely putting your health at risk, regardless of the factors below. However, there are some situations where BMI may underestimate or overestimate these risks in the 25-35 BMI range. The main ones are:
+                <ul>
+                    <li>Children</li>
+                    <li>Pregnant women.</li>
+                    <li>Muscle Builders</li>
+                    <li>BAME: Black, Asian and other minority ethnic groups.</li>
+                </ul>
+            </p>
+        </div>
+    </div>
+    <div class="jumbotron">
+        <div class="row">
+            <h2 class="text-center">BMI Result</h2>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-6 text-center">
+                <p style="margin-left: 10%; margin-right: 10%">
+                    @ViewBag.BMIResult
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

@@ -15,6 +15,11 @@ namespace ConsoleAppProject.App02
         public const double INCH_IN_CM = 2.54;
         public const double POUND_IN_KG = 0.453592;
         public const double STONE_IN_KG = 6.35029;
+        public const string E_OBESE = "40";
+        public const string OBESE = "31";
+        public const string OVERWEIGHT = "25";
+        public const string HEALTHY = "19";
+        public const string UNDERWEIGHT = "1";
 
         [BindProperty]
         public int Weight { get; set; }
@@ -83,16 +88,16 @@ namespace ConsoleAppProject.App02
         {
             Console.WriteLine("\n\tWHO (World Health Organisation) weight status as illustrated below:\n");
 
-            CollorChanger.ChangeColor("40");
-            Console.WriteLine("\n\tExtremely Obese");
-            CollorChanger.ChangeColor("31");
-            Console.WriteLine("\tObese");
-            CollorChanger.ChangeColor("25");
-            Console.WriteLine("\tOverweight");
-            CollorChanger.ChangeColor("19");
-            Console.WriteLine("\tHealthy");
-            CollorChanger.ChangeColor("1");
-            Console.WriteLine("\tUnderWeight");
+            CollorChanger.ChangeColor(E_OBESE);
+            Console.WriteLine($"\n\t{EnumHelper<Categories>.GetName(Categories.E_OBESE)}");
+            CollorChanger.ChangeColor(OBESE);
+            Console.WriteLine($"\n\t{EnumHelper<Categories>.GetName(Categories.OBESE)}");
+            CollorChanger.ChangeColor(OVERWEIGHT);
+            Console.WriteLine($"\n\t{EnumHelper<Categories>.GetName(Categories.OVERWEIGHT)}");
+            CollorChanger.ChangeColor(HEALTHY);
+            Console.WriteLine($"\n\t{EnumHelper<Categories>.GetName(Categories.HEALTHY)}");
+            CollorChanger.ChangeColor(UNDERWEIGHT);
+            Console.WriteLine($"\n\t{EnumHelper<Categories>.GetName(Categories.UNDERWEIGHT)}");
         }
 
         /// <summary>
@@ -115,15 +120,17 @@ namespace ConsoleAppProject.App02
         /// <summary>
         /// Calculate Bmi;
         /// </summary>
-        public int CalculateBmi(bool isMetric)
+        public string CalculateBmi(bool isMetric)
         {
             if(!isMetric)
             {
                 Weight = Convert.ToInt32((WeightInPounds * POUND_IN_KG) + (WeightInStones * STONE_IN_KG));
                 Height = Convert.ToInt32((HeightInFeet * FEET_IN_CM) + (HeightInInches * INCH_IN_CM));
+               
             }
             Bmi = (int)Calculator.CalculateBmi(Weight, Height);
-            return Bmi;
+            var Details = CalculateCategory(Bmi);
+            return $"Your result is {Bmi}. You are in the {Details.Item1} range. {Details.Item2}";
         }
 
         public string GetDescription()
@@ -139,6 +146,31 @@ namespace ConsoleAppProject.App02
                 "\t\t-Pregnant women.\n" +
                 "\t\tMuscle Builders.\n" +
                 "\t\tBAME: Black, Asian and other minority ethnic groups.\n";
+        }
+
+        public Tuple<string, string> CalculateCategory(int Bmi)
+        {
+
+            if (Bmi >= Convert.ToInt32(E_OBESE))
+            {
+                return Tuple.Create(EnumHelper<Categories>.GetName(Categories.E_OBESE), EnumHelper<Categories>.GetDescription(Categories.E_OBESE));
+            }
+            else if (Bmi >= Convert.ToInt32(OBESE))
+            {
+                return Tuple.Create(EnumHelper<Categories>.GetName(Categories.OBESE), EnumHelper<Categories>.GetDescription(Categories.OBESE));
+            }
+            else if (Bmi >= Convert.ToInt32(OVERWEIGHT))
+            {
+                return Tuple.Create(EnumHelper<Categories>.GetName(Categories.OVERWEIGHT), EnumHelper<Categories>.GetDescription(Categories.OVERWEIGHT));
+            }
+            else if (Bmi >= Convert.ToInt32(HEALTHY))
+            {
+                return Tuple.Create(EnumHelper<Categories>.GetName(Categories.HEALTHY), EnumHelper<Categories>.GetDescription(Categories.HEALTHY));
+            }
+            else
+            {
+                return Tuple.Create(EnumHelper<Categories>.GetName(Categories.UNDERWEIGHT), EnumHelper<Categories>.GetDescription(Categories.UNDERWEIGHT));
+            }
         }
     }
 }

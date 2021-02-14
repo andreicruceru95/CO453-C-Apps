@@ -4,6 +4,9 @@ using System.Text;
 
 namespace ConsoleAppProject.App02
 {
+    /// <summary>
+    /// This class is used to change the colours of the text for the console version.
+    /// </summary>
     public static class CollorChanger
     {
         public const int RED = 39;

@@ -13,9 +13,12 @@
         <br />
         <div>
             <p style="margin-left:10%; margin-right:10%">
-                Your BMI, or Body Mass Index, is a measure of your weight compared to your height. Accurate assessments of obesity are important, as being overweight or obese significantly increases your risk of a variety of medical conditions including type 2 diabetes, heart disease and cancer.
+                Your BMI, or Body Mass Index, is a measure of your weight compared to your height. Accurate assessments of obesity are important, 
+                as being overweight or obese significantly increases your risk of a variety of medical conditions including type 2 diabetes, heart disease and cancer.
 
-                For most adults, BMI gives a good estimate of your weight-related health risks. If your BMI is over 35, your weight is definitely putting your health at risk, regardless of the factors below. However, there are some situations where BMI may underestimate or overestimate these risks in the 25-35 BMI range. The main ones are:
+                For most adults, BMI gives a good estimate of your weight-related health risks. If your BMI is over 35, your weight is definitely
+                putting your health at risk, regardless of the factors below. However, there are some situations where BMI may underestimate or
+                overestimate these risks in the 25-35 BMI range. The main ones are:
                 <ul>
                     <li>Children</li>
                     <li>Pregnant women.</li>
@@ -60,12 +63,8 @@
                             <label for="converted">Weight</label>
                             <input class="form-control" asp-for="Weight" placeholder="Kilograms" required />
                         </div>
-                        <button type="submit" class="btn" style="background-color:forestgreen;"
-                                onclick="javascript: $('#metricResult').show()">
-                            Calculate
-                        </button>
+                        <button asp-action="BMIResult" asp-route-value="@Model.CalculateBmi(true)" type="submit" class="btn" style="background-color:forestgreen;">Calculate</button>
                     </form>
-                    <div class="row" id="metricResult" style="display:none;">The result is: @Model.CalculateBmi(true)</div>
                 </div>
                 <div class="row collapse" id="imperial">
                     <form method="post">
@@ -79,16 +78,10 @@
                             <input class="form-control" asp-for="WeightInStones" placeholder="Stones" required />
                             <input class="form-control" asp-for="WeightInPounds" placeholder="Pounds" required />
                         </div>
-                        <button type="submit" class="btn" style="background-color:forestgreen;"
-                                onclick="javascript: $('#imperialResult').show()">Calculate</button>
-                    </form>
-                    <div class="row" id="imperialResult" style="display:none;">The result is: @Model.CalculateBmi(false)</div>
+                        <button asp-action="BMIResult" asp-route-value="@Model.CalculateBmi(false)" type="submit" class="btn" style="background-color:forestgreen;">Calculate</button>
+                    </form>                    
                 </div>
-            </div>
-            @*<div class="col-sm-12 col-md-6">
-                <h1 class="text-center">Result</h1>
-                <h1 class="text-left" style="margin-left:10%">@Model.CalcTest()</h1>
-            </div>*@
+            </div>            
         </div>
     </div>
 </div>

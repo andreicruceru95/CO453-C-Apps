@@ -20,6 +20,11 @@ namespace WebUI.Controllers
             return View(BmiCalculator);
         }
 
+        public IActionResult BMIResultbool(string value)
+        {
+            ViewBag.BMIResult = value;
+            return View();
+        }
         public IActionResult DistanceConverter(DistanceConverter converter)
         {
             return View(converter);
