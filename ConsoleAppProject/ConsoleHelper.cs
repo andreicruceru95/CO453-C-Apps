@@ -95,5 +95,20 @@ namespace ConsoleAppProject
                 return InputNumber(prompt, min, max);
             }
         }
+
+        public static string InputString(string message)
+        {
+            Console.WriteLine($"\n\t{message}");
+
+            string input = Console.ReadLine();
+            if (!(string.IsNullOrWhiteSpace(input)))
+                return input;
+
+            else
+            {
+                Console.WriteLine("\n\tCannot leave empty!\n");
+                return InputString(message);
+            }
+        }
     }
 }

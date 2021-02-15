@@ -64,7 +64,9 @@ namespace ConsoleAppProject
                     bmi.RunBmiConverter();
                     break;
 
-                case APP03:                    
+                case APP03:
+                    StudentMarks students = new StudentMarks();
+                    students.Run();
                     break;
 
                 case APP04:

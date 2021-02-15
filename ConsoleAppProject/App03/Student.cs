@@ -6,6 +6,7 @@ using System.Text;
 
 namespace ConsoleAppProject.App03
 {
+    [Serializable]
     public class Student
     {
         public const int A_MIN = 70;
