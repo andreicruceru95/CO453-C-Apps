@@ -31,54 +31,61 @@
     <div class="jumbotron">
         <div class="row" id="bmiForm">
             <div class="col-sm-12 col-md-6">
-                <div class="row">
+                <div class="row align-content-center">
                     <div class="col-sm-12 col-md-6">
-                        <p>Calculate using metric values</p>
+                        <p style="margin-left:5%; margin-right: 5%">
+                            You can chose between metric or imperial input.
+                        </p>
                     </div>
-                    <div class="col-sm-12 col-md-6 text-center">
-                        <input type="button" class="btn btn-info" @*aria-expanded="false" aria-controls="metric"
-                               data-target="#metric" data-toggle="collapse"*@ value="Metric"
-                               onclick="javascript: $('#imperial').hide();javascript: $('#metric').show();" />
-                    </div>
-                </div>
-                <div class="row">
                     <div class="col-sm-12 col-md-6">
-                        <p>Calculate using imperial values</p>
-                    </div>
-                    <div class="col-sm-12 col-md-6 text-center">
-                        <input type="button" class="btn btn-info" @*aria-expanded="false" aria-controls="imperial"
-                               data-target="#imperial" data-toggle="collapse"*@ value="Imperial"
+                        <input type="button" class="btn btn-info float-lg-left" value="Metric"
+                               onclick="javascript: $('#imperial').hide();javascript: $('#metric').show();" />                    
+                        <input type="button" class="btn btn-info float-lg-right" value="Imperial"
                                onclick="javascript: $('#imperial').show();javascript: $('#metric').hide();" />
                     </div>
                 </div>
             </div>
-            <div class="col-sm-12 col-md-6">
-                <div class="row collapse" id="metric">
+        </div>
+        <br /><br />
+        <div class="row">
+                <div class="col-sm-6 align-self-lg-center" style="display:block;" id="metric">
                     <form method="post">
                         <div class="form-group">
-                            <label for="amount">Height</label>
+                            <h3>Height</h3>
+                            <br />
+                            <label for="Centimenters">Centimeters</label>
                             <input class="form-control" asp-for="Height" placeholder="Centimeters" required />
                         </div>
                         <div class="form-group">
-                            <label for="converted">Weight</label>
+                            <h3>Weight</h3>
+                            <br />
+                            <label for="Kilograms">Kilograms</label>
                             <input class="form-control" asp-for="Weight" placeholder="Kilograms" required />
                         </div>
-                        <button asp-action="BMIResult" asp-route-value="@Model.CalculateBmi()" type="submit" class="btn" style="background-color:forestgreen;">Calculate</button>
+                        <button asp-action="BMIResultM" type="submit" class="btn" style="background-color:forestgreen;">Calculate</button>
                     </form>
                 </div>
-                <div class="row collapse" id="imperial">
+        </div>
+        <div class="row">
+                <div class="col-sm-6 align-self-lg-center" style="display:none;" id="imperial">
                     <form method="post">
                         <div class="form-group">
-                            <label for="amount">Height</label>
+                            <h3>Height</h3>
+                            <br />
+                            <label for="Feet">Feet</label>
                             <input class="form-control" asp-for="HeightInFeet" placeholder="Feet" required />
+                            <label for="Inch">Inch</label>
                             <input class="form-control" asp-for="HeightInInches" placeholder="Inches" required />
                         </div>
                         <div class="form-group">
-                            <label for="converted">Weight</label>
+                            <h3>Weight</h3>
+                            <br />
+                            <label for="Stones">Stones</label>
                             <input class="form-control" asp-for="WeightInStones" placeholder="Stones" required />
+                            <label for="Pounds">Pounds</label>
                             <input class="form-control" asp-for="WeightInPounds" placeholder="Pounds" required />
                         </div>
-                        <button asp-action="BMIResult" asp-route-value="@Model.CalculateBmi()" type="submit" class="btn" style="background-color:forestgreen;">Calculate</button>
+                        <button asp-action="BMIResultI" type="submit" class="btn" style="background-color:forestgreen;">Calculate</button>
                     </form>                    
                 </div>
             </div>            

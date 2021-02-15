@@ -20,9 +20,20 @@ namespace WebUI.Controllers
             return View(BmiCalculator);
         }
 
-        public IActionResult BMIResultbool(string value)
+        public IActionResult BMIResultM(BMI model)
+        { 
+            var Bmi = model.CalculateBmi(true);
+            ViewBag.BMIResult = Bmi;
+            ViewBag.BMIMessage = model.GetDetails(Bmi);
+
+            return View();
+        }
+        public IActionResult BMIResultI(BMI model)
         {
-            ViewBag.BMIResult = value;
+            var Bmi = model.CalculateBmi(false);
+            ViewBag.BMIResult = Bmi;
+            ViewBag.BMIMessage = model.GetDetails(Bmi);
+
             return View();
         }
         public IActionResult DistanceConverter(DistanceConverter converter)

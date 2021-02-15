@@ -48,10 +48,9 @@ namespace ConsoleAppProject.App02
         public void RunBmiConverter()
         {
             GetInput();
-            Console.WriteLine(CalculateBmi());
             Chart.CreateChart(Weight, Height);
             PrintChartDetails();
-            //PrintBMIDetails();
+            Console.WriteLine(GetDetails(Bmi));
         }
 
         /// <summary>
@@ -69,13 +68,15 @@ namespace ConsoleAppProject.App02
                             (ConsoleHelper.InputNumber("Enter your weight in pounds >") * POUND_IN_KG));
 
                     Height = Convert.ToInt32((ConsoleHelper.InputNumber("Enter your heigth in feet >") * FEET_IN_CM) +
-                            (ConsoleHelper.InputNumber("Enter your heigth in inches >") * INCH_IN_CM));                   
+                            (ConsoleHelper.InputNumber("Enter your heigth in inches >") * INCH_IN_CM));
+                    CalculateBmi(false);
 
                     break;
                 //if metric
                 default:
                     Weight = Convert.ToInt32(ConsoleHelper.InputNumber("Enter your weight in kilograms >"));
                     Height = Convert.ToInt32(ConsoleHelper.InputNumber("Enter your height in centimeters >"));
+                    CalculateBmi(true);
 
                     break;
             }
@@ -120,16 +121,25 @@ namespace ConsoleAppProject.App02
         /// <summary>
         /// Calculate Bmi;
         /// </summary>
-        public string CalculateBmi()
+        public int CalculateBmi(bool isMetric)
         {
-            //if(caseNo == 1)
-            //{
-            //    Weight = Convert.ToInt32((WeightInPounds * POUND_IN_KG) + (WeightInStones * STONE_IN_KG));
-            //    Height = Convert.ToInt32((HeightInFeet * FEET_IN_CM) + (HeightInInches * INCH_IN_CM));
-               
-            //}
+            if (!isMetric)
+            {
+                Weight = Convert.ToInt32((WeightInPounds * POUND_IN_KG) + (WeightInStones * STONE_IN_KG));
+                Height = Convert.ToInt32((HeightInFeet * FEET_IN_CM) + (HeightInInches * INCH_IN_CM));
 
-            Bmi = (int)Calculator.CalculateBmi(Weight, Height);
+            }
+
+            return (int)Calculator.CalculateBmi(Weight, Height);
+            
+        }
+
+        /// <summary>
+        /// Get bmi details
+        /// </summary>
+        /// <returns>Message about bmi</returns>
+        public string GetDetails(int Bmi)
+        {
             var Details = CalculateCategory(Bmi);
             return $"\t\tYour BMI is {Bmi}. You are in the {Details.Item1} range.\n{Details.Item2}";
         }

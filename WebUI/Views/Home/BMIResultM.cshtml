@@ -25,16 +25,26 @@
             </p>
         </div>
     </div>
-    <div class="jumbotron">
-        <div class="row">
-            <h2 class="text-center">BMI Result</h2>
-        </div>
+    <div class="jumbotron">        
         <div class="row">
             <div class="col-sm-12 col-md-6 text-center">
                 <p style="margin-left: 10%; margin-right: 10%">
-                    @ViewBag.BMIResult
+                    <h3>Your Result: @ViewBag.BMIResult</h3>
                 </p>
             </div>
+            <div class="col-sm-12 col-md-6 text-left">
+                <p style="margin-left:10%">
+                    @ViewBag.BMIMessage
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <h4>The chart used for calculations is the following.</h4>
+            <br /><br />
+        </div>
+        <br /><br />
+        <div class="row">
+            <img class="img-fluid" src="~/images/BMI_Chart.jpg" alt="BMI Chart" />
         </div>
     </div>
 </div>
