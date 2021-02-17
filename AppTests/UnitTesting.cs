@@ -30,7 +30,7 @@ namespace AppTests
             //var correctResult = 12;
 
             //Assert.AreEqual(correctResult, converter.GetResult());
-        }
+        }     
 
     }
 }

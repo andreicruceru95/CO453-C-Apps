@@ -2,47 +2,118 @@
 @{
     ViewData["Title"] = "Statistics";
 }
+<html>
+<head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+        google.charts.load('current', { 'packages': ['bar'] });
+        google.charts.setOnLoadCallback(drawBarChart);
 
-<div class="jumbotron">
-    <div class="row">
-        <h1 class="text-center">Statistics and Analysis</h1>
-    </div>
-    <br />
-    <hr />
-    <div class="row">
-        <div class="col-sm-6">
-            <p style="margin-left:5%; margin-right: 5%;">
-                Here you can see some statistics using the data we colected. <br />
+        function drawChart() {
+            @{
+                int first = 0;
+                int second = 0;
+                int secondII = 0;
+                int third = 0;
+                int failled = 0;
+                int marks = 0;
 
-            </p>
-        </div>
-        <div class="col-sm-6">
-
-        </div>
-    </div>
-    <hr/>
-    <div class="row">
-        <div class="col-sm-6 col-md-4">
-            @{ 
-                <h4>The amount of students @Model.Count()</h4>
-            }
-        </div>
-        <div class="col-sm-6 col-md-4">
-            @{ 
-                int totalMarks = 0;
-                foreach (var item in Model)
+                foreach(var item in Model)
                 {
-                    totalMarks += item.Mark;
+                    if(item.Mark >= 70)
+                        first += 1;
+                    else if (item.Mark >= 60)
+                        second++;
+                    else if (item.Mark >= 50)
+                        secondII++;
+                    else if (item.Mark >= 40)
+                        third++;
+                    else
+                        failled++;
+
+                    marks += item.Mark;
                 }
-                totalMarks = totalMarks / Model.Count();
 
-                <h4> Average mark is @totalMarks</h4>
+                marks = marks / Model.Count();
             }
-        </div>
-        <div class="col-sm-6 col-md-4">
+            var data = google.visualization.arrayToDataTable([
+                ['Grades', 'Number of students'],
+                ['First Class', @first],
+                ['Upper Second Class', @second],
+                ['Lower Second Class', @secondII],
+                ['Third Class', @third],
+                ['Failled', @failled]
+            ]);
+            var options = {
+                title: 'Student Grades data based on @Model.Count() students. Average student mark: @marks'
+            };
+            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+            chart.draw(data, options);
+        }
+        function drawBarChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Grades', 'Student No', { role: 'style' }],
+                ['Fail', @failled, 'color: purple'],
+                ['Third Class', @third, 'color: green'],
+                ['Lower Second Class', @secondII, 'color: orange'],
+                ['Upper Second Class', @second, 'color: red'],
+                ['First Class', @first, 'color: blue']
+            ]);
+            var options = {
+                title: 'Student Grades data based on @Model.Count() students. Average student mark: @marks'
+            };
+            var chart = new google.visualization.ColumnChart(document.getElementById('barchart'));
+            chart.draw(data, options);
+        }
+    </script>
+</head>
 
-        </div>
-        
-    </div>
+    <body>
+        <div class="jumbotron">
+            <div class="row">
+                <h1 class="text-center">Statistics and Analysis</h1>
+            </div>
+            <br />
+            <hr />
+            <div class="row">
+                <div class="col-sm-12">
+                    <p style="margin-left:5%; margin-right: 5%;">
+                        Here you can see some statistics using the data we colected. <br />
 
-</div>
+                    </p>
+                </div>               
+            </div>
+            <hr />
+            <br /><br />
+            @*<div class="row">
+                <div class="col-sm-6 col-md-4">
+                    @{
+                        <h4>Number of students: @Model.Count()</h4>
+                    }
+                </div>
+                <div class="col-sm-6 col-md-4">
+                    @{
+                        int totalMarks = 0;
+                        foreach (var item in Model)
+                        {
+                            totalMarks += item.Mark;
+                        }
+                        totalMarks = totalMarks / Model.Count();
+
+                        <h4> Average mark is @totalMarks</h4>
+                    }
+                </div>
+                <div class="col-sm-6 col-md-4">
+                </div>
+            </div>*@
+            <div class="row text-center">
+                <div id="piechart" style="width: 900px; height: 500px;"></div>
+            </div>
+            <div class="row text-center">
+                <div id="barchart" style="width: 900px; height: 500px;"></div>
+            </div>
+        </div>
+    </body>
+</html>

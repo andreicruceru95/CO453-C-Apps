@@ -65,6 +65,7 @@ namespace ConsoleAppProject
                     break;
 
                 case APP03:
+                    ConsoleHelper.PrintText("Student Marks", true);
                     StudentMarks students = new StudentMarks();
                     students.Run();
                     break;

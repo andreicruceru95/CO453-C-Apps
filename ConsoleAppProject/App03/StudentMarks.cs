@@ -8,10 +8,6 @@ namespace ConsoleAppProject.App03
 {
     public class StudentMarks
     {
-        //string dir = @"C:\Users\andre\source\repos\andreicruceru95\CO453-C-Apps\ConsoleAppProject\App03";
-        string SerializationFile = Path.Combine(@"C:\Users\andre\source\repos\andreicruceru95\CO453-C-Apps\ConsoleAppProject\App03", "Student.bin");
-
-        //private int MediumMark = 0;
         private List<Student> Students = new List<Student>();
         private string[] Choices = new string[]
         {
@@ -21,44 +17,25 @@ namespace ConsoleAppProject.App03
             "See Statistics",
             "Exit App"
         };
-
+        
+        /// <summary>
+        /// Run the application in steps.
+        /// </summary>
         public void Run()
         {
+            Students = Streamer.ReadFile();
+
             var finished = false;
             while (!finished)
             {
                 switch (ConsoleHelper.SelectChoice("Please select an action", Choices))
                 {
                     case 1:
-                        var ID = Convert.ToInt32(ConsoleHelper.InputString("Please enter a new Student ID >"));
-                        Student student = CheckID(ID);
-
-                        if (student is null)
-                        {
-                            AddNew(ID,
-                                   ConsoleHelper.InputString("Please enter Student's First Name >"),
-                                   ConsoleHelper.InputString("Please enter Student's Last Name >"));
-                            Console.WriteLine($"\n\tStudent with Student ID {ID} Added!");
-                            SaveFile();
-                        }
-                        else
-                            Console.WriteLine($"\n\tID {ID} already exists. Try again!");
+                        AddNew();
                         break;
+
                     case 2:
-                        ID = Convert.ToInt32(ConsoleHelper.InputString("Please enter the Student's ID of which you want to award >"));
-                        student = CheckID(ID);
-
-                        if (student != null)
-                        {
-                            AwardMark(ID,
-                                      Convert.ToInt32(ConsoleHelper.InputNumber("Please enter the mark >", 1, 100)));
-                            SaveFile();
-                        }
-                        else
-                        {
-                            Console.WriteLine($"\n\tStudent with ID {ID} is not recognised. Please try again!");
-                        }
-
+                        AwardMark();
                         break;
 
                     case 3:
@@ -70,15 +47,17 @@ namespace ConsoleAppProject.App03
                         Student StudentMax = GetStatistics().Item2;
                         int MediumMark = GetStatistics().Item3;
 
-                        Console.WriteLine($"\tThe lowest mark is {StudentMin.Mark} and it belongs to :\n\t{StudentMin.StudentID} {StudentMin.FullName()}");
-                        Console.WriteLine($"\tThe highest mark is {StudentMax.Mark} and it belongs to :\n\t{StudentMax.StudentID} {StudentMax.FullName()}");
-                        Console.WriteLine($"\tThe medium mark is {MediumMark}");
+                        Console.WriteLine($"\n\tThe lowest mark is {StudentMin.Mark} and it belongs to :\n\t{StudentMin.StudentID} {StudentMin.FullName()}");
+                        Console.WriteLine($"\n\tThe highest mark is {StudentMax.Mark} and it belongs to :\n\t{StudentMax.StudentID} {StudentMax.FullName()}");
+                        Console.WriteLine($"\n\tThe medium mark is {MediumMark}");
 
                         StudentMin.Mark = MediumMark;
 
-                        Console.WriteLine($"\tThe medium grade is {StudentMin.CalculateGrade()}");
+                        Console.WriteLine($"\n\tThe medium grade is {StudentMin.CalculateGrade()}");
                         break;
+
                     case 5:
+                        Streamer.SaveFile(Students);
                         finished = true;
                         break;
                 }
@@ -91,17 +70,30 @@ namespace ConsoleAppProject.App03
         /// <param name="ID">Student ID</param>
         /// <param name="FirstName">Student's first name</param>
         /// <param name="LastName">Student's last name</param>
-        public void AddNew(int ID,string FirstName, string LastName)
+        public void AddNew()
         {
-            if(CheckID(ID) == null)
+            try
             {
+                var ID = Convert.ToInt32(ConsoleHelper.InputString("Please enter a new Student ID >"));
+
                 Student student = new Student();
 
-                student.StudentID = ID;
-                student.FirstName = FirstName;
-                student.LastName = LastName;
+                if (CheckID(ID) == null)
+                {
+                    student.StudentID = ID;
+                    student.FirstName = ConsoleHelper.InputString("Please enter Student's First Name >");
+                    student.LastName = ConsoleHelper.InputString("Please enter Student's Last Name >");
 
-                Students.Add(student);            
+                    Students.Add(student);
+
+                    Console.WriteLine($"\n\tStudent with Student ID {ID} Added!");
+                }
+                else
+                    Console.WriteLine($"\n\tID {ID} already exists. Try again!");
+            }
+            catch(FormatException)
+            {
+                Console.WriteLine("\t\tPlease enter ID as whole numbers!");
             }
         }
 
@@ -116,50 +108,53 @@ namespace ConsoleAppProject.App03
             {
                 if (Student.StudentID == ID)
                 {
-                    //Console.WriteLine("\n\tID already exists. Try another ID.");
-
                     return Student;
                 }                
             }
-
             return null;
         }
 
         /// <summary>
         /// Award mark to a student.
         /// </summary>
-        /// <param name="ID">Student's ID</param>
-        /// <param name="Mark">The Mark to add</param>
-        /// <returns></returns>
-        public string AwardMark(int ID, int Mark)
+        public void AwardMark()
         {
-            Student student = CheckID(ID);
-            if (student != null)
+            try
             {
-                student.Mark = Mark; 
-                SaveFile();
+                int ID = Convert.ToInt32(ConsoleHelper.InputString("Please enter the Student's ID of which you want to award >"));
+                Student student = CheckID(ID);
 
-                return $"\n\tAdded {Mark} Mark for {student.FirstName} {student.LastName}";               
+                if (student != null)
+                {
+                    student.Mark = Convert.ToInt32(ConsoleHelper.InputNumber("Please enter the mark >", 1, 100));
+
+                    Console.WriteLine($"\n\tAdded {student.Mark} Mark for {student.FirstName} {student.LastName}");
+                }
+                else
+                {
+                    Console.WriteLine($"\n\tStudent with ID {ID} is not recognised. Please try again!");
+                }
             }
-            else
+            catch (FormatException)
             {
-                return $"\n\tID {ID} could not be found! Check that you entered the right details.";
-            }            
-        }
+                Console.WriteLine("\t\tPlease enter ID as whole numbers!");
+            }
+        }            
+        
 
         /// <summary>
         /// Display a list of students.
         /// </summary>
         public void DisplayStudents()
         {
-            ReadFile();
             var StudentsSorted = Students.OrderBy(S => S.StudentID).ToList();
 
             Console.WriteLine("\n\t\tID\tFirst Name\tLast Name\tMark\tGrade\n");
 
             foreach (Student student in StudentsSorted)
             {
-                Console.WriteLine($"\t\t{student.StudentID}\t{student.FirstName}\t\t{student.LastName}\t\t{student.Mark}\t{student.CalculateGrade()}");
+                Console.WriteLine($"\t\t{student.StudentID}\t{student.FirstName}\t\t{student.LastName}\t\t{student.Mark}" +
+                    $"\t{EnumHelper<Grades>.GetName(student.CalculateGrade())}");
             }
         }
 
@@ -173,8 +168,6 @@ namespace ConsoleAppProject.App03
             Student StudentMin = new Student();
             StudentMin.Mark = 100;
             Student StudentMax = new Student();
-
-            ReadFile();
 
             foreach(Student student in Students)
             {
@@ -193,26 +186,6 @@ namespace ConsoleAppProject.App03
             MediumMark = Convert.ToInt32(MediumMark / Students.Count());
             
             return Tuple.Create(StudentMin,StudentMax, MediumMark);
-        }
-
-        public void SaveFile()
-        {
-            using (Stream stream = File.Open(SerializationFile, FileMode.Create))
-            {
-                var bformatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-
-                bformatter.Serialize(stream, Students);
-            }
-        }
-
-        public void ReadFile()
-        {
-            using (Stream stream = File.Open(SerializationFile, FileMode.Open))
-            {
-                var bformatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-
-                Students = (List<Student>)bformatter.Deserialize(stream);
-            }
-        }
+        }        
     }
 }
