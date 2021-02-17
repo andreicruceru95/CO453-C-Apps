@@ -101,23 +101,6 @@ namespace ConsoleAppProject.App02
             Console.WriteLine($"\n\t{EnumHelper<Categories>.GetName(Categories.UNDERWEIGHT)}");
         }
 
-        ///// <summary>
-        ///// Print details about the user's bmi.
-        ///// </summary>
-        ///// <param name="Weight">User's weight</param>
-        ///// <param name="Height">User's Height</param>
-        //private void PrintBMIDetails()
-        //{
-        //    Console.WriteLine("\n\n\tYou should see your BMI value highlighted on the chart.\n\t" +
-        //       "If it is not there, is because your height or weight is higher than the average.\n\t " +
-        //       "Your BMI value is aproximately" + Bmi);
-        //}
-
-        //public int CalcTest()
-        //{
-        //    return (int)Calculator.CalculateBmi(Weight, Height);
-        //}
-
         /// <summary>
         /// Calculate Bmi;
         /// </summary>
@@ -127,11 +110,8 @@ namespace ConsoleAppProject.App02
             {
                 Weight = Convert.ToInt32((WeightInPounds * POUND_IN_KG) + (WeightInStones * STONE_IN_KG));
                 Height = Convert.ToInt32((HeightInFeet * FEET_IN_CM) + (HeightInInches * INCH_IN_CM));
-
             }
-
-            return (int)Calculator.CalculateBmi(Weight, Height);
-            
+            return (int)Calculator.CalculateBmi(Weight, Height);            
         }
 
         /// <summary>
@@ -144,6 +124,10 @@ namespace ConsoleAppProject.App02
             return $"\t\tYour BMI is {Bmi}. You are in the {Details.Item1} range.\n{Details.Item2}";
         }
 
+        /// <summary>
+        /// return a short description obout this application
+        /// </summary>
+        /// <returns></returns>
         public string GetDescription()
         {
             return "\t\tYour BMI, or Body Mass Index, is a measure of your weight compared to your height.\n" +
@@ -158,7 +142,11 @@ namespace ConsoleAppProject.App02
                 "\t\tMuscle Builders.\n" +
                 "\t\tBAME: Black, Asian and other minority ethnic groups.\n";
         }
-
+        /// <summary>
+        /// Return name and description for the bmi category
+        /// </summary>
+        /// <param name="Bmi">the user's bmi</param>
+        /// <returns>name and description for that category</returns>
         public Tuple<string, string> CalculateCategory(int Bmi)
         {
 
