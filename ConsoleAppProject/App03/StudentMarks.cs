@@ -15,6 +15,7 @@ namespace ConsoleAppProject.App03
             "Award/Update Mark",
             "Display list of students",
             "See Statistics",
+            "See Grade profile",
             "Exit App"
         };
         
@@ -57,6 +58,15 @@ namespace ConsoleAppProject.App03
                         break;
 
                     case 5:
+                        Console.WriteLine($"\n\t{GetProcentage().Item1}% students have achieved a 1 class grade.");
+                        Console.WriteLine($"\n\t{GetProcentage().Item2}% students have achieved a 2,1 class grade.");
+                        Console.WriteLine($"\n\t{GetProcentage().Item3}% students have achieved a 2,2 class grade.");
+                        Console.WriteLine($"\n\t{GetProcentage().Item4}% students have achieved a 3 class grade.");
+                        Console.WriteLine($"\n\t{GetProcentage().Item5}% students have failled.");
+
+                        break;
+
+                    case 6:
                         Streamer.SaveFile(Students);
                         finished = true;
                         break;
@@ -162,30 +172,52 @@ namespace ConsoleAppProject.App03
         /// Find the students with the lowest and highest mark and calculate the mean.
         /// </summary>
         /// <returns>The students with the lowest and highest mark.</returns>
-        public Tuple<Student,Student, int> GetStatistics()
+        public Tuple<Student,Student, int, Tuple<int, int, int, int, int>> GetStatistics()
         {
             var MediumMark = 0;            
             Student StudentMin = new Student();
             StudentMin.Mark = 100;
             Student StudentMax = new Student();
+            int first = 0;
+            int second = 0;
+            int secondII = 0;
+            int third = 0;
+            int failled = 0;
 
-            foreach(Student student in Students)
+            foreach (Student student in Students)
             {
                 MediumMark += student.Mark;
+                if (student.Mark > 70)
+                    first++;
+                else if (student.Mark > 60)
+                    second++;
+                else if (student.Mark > 50)
+                    secondII++;
+                else if (student.Mark > 40)
+                    third++;
+                else
+                    failled++;
 
-                if(student.Mark < StudentMin.Mark)
-                {
+                if (student.Mark < StudentMin.Mark)
                     StudentMin = student;
-                }
-
                 if(student.Mark > StudentMax.Mark)
-                {
                     StudentMax = student;
-                }
             }
             MediumMark = Convert.ToInt32(MediumMark / Students.Count());
             
-            return Tuple.Create(StudentMin,StudentMax, MediumMark);
-        }        
+            return Tuple.Create(StudentMin,StudentMax, MediumMark, Tuple.Create(first, second, secondII, third, failled));
+        }
+        public Tuple<double, double, double, double, double> GetProcentage()
+        {
+            var totalStudents = Students.Count();
+            var gradeCount = GetStatistics().Item4;
+            double first = Math.Round(Convert.ToDouble(gradeCount.Item1  * 100 / totalStudents), 2);
+            double second = Math.Round(Convert.ToDouble(gradeCount.Item2 * 100 / totalStudents), 2);
+            double secondII = Math.Round(Convert.ToDouble(gradeCount.Item3 * 100 / totalStudents), 2);
+            double third = Math.Round(Convert.ToDouble(gradeCount.Item4 * 100 / totalStudents), 2);
+            double failled = Math.Round(Convert.ToDouble(gradeCount.Item5 * 100 / totalStudents), 2);
+
+            return Tuple.Create(first, second, secondII, third, failled);
+        }
     }
 }
