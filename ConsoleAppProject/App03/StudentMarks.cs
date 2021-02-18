@@ -207,6 +207,10 @@ namespace ConsoleAppProject.App03
             
             return Tuple.Create(StudentMin,StudentMax, MediumMark, Tuple.Create(first, second, secondII, third, failled));
         }
+        /// <summary>
+        /// return the percentage of students for each grade category.
+        /// </summary>
+        /// <returns>the percentages for each grade.</returns>
         public Tuple<double, double, double, double, double> GetProcentage()
         {
             var totalStudents = Students.Count();
