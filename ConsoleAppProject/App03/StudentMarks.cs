@@ -8,7 +8,7 @@ namespace ConsoleAppProject.App03
 {
     public class StudentMarks
     {
-        private List<Student> Students = new List<Student>();
+        private List<Student> Students = Streamer.ReadFile();
         private string[] Choices = new string[]
         {
             "Add new Student",
@@ -24,7 +24,7 @@ namespace ConsoleAppProject.App03
         /// </summary>
         public void Run()
         {
-            Students = Streamer.ReadFile();
+            //Students = Streamer.ReadFile();
 
             var finished = false;
             while (!finished)
@@ -58,11 +58,11 @@ namespace ConsoleAppProject.App03
                         break;
 
                     case 5:
-                        Console.WriteLine($"\n\t{GetProcentage().Item1}% students have achieved a 1 class grade.");
-                        Console.WriteLine($"\n\t{GetProcentage().Item2}% students have achieved a 2,1 class grade.");
-                        Console.WriteLine($"\n\t{GetProcentage().Item3}% students have achieved a 2,2 class grade.");
-                        Console.WriteLine($"\n\t{GetProcentage().Item4}% students have achieved a 3 class grade.");
-                        Console.WriteLine($"\n\t{GetProcentage().Item5}% students have failled.");
+                        Console.WriteLine($"\n\t{GetProfile().Item1}% students have achieved a 1 class grade.");
+                        Console.WriteLine($"\n\t{GetProfile().Item2}% students have achieved a 2,1 class grade.");
+                        Console.WriteLine($"\n\t{GetProfile().Item3}% students have achieved a 2,2 class grade.");
+                        Console.WriteLine($"\n\t{GetProfile().Item4}% students have achieved a 3 class grade.");
+                        Console.WriteLine($"\n\t{GetProfile().Item5}% students have failled.");
 
                         break;
 
@@ -111,7 +111,7 @@ namespace ConsoleAppProject.App03
         /// Check if the ID already exists.
         /// </summary>
         /// <param name="ID">ID to validate</param>
-        /// <returns>true if the id is available, false otherwise</returns>
+        /// <returns>student if the id is available, null otherwise</returns>
         public Student CheckID(int ID)
         {
             foreach (Student Student in Students)
@@ -211,7 +211,7 @@ namespace ConsoleAppProject.App03
         /// return the percentage of students for each grade category.
         /// </summary>
         /// <returns>the percentages for each grade.</returns>
-        public Tuple<double, double, double, double, double> GetProcentage()
+        public Tuple<double, double, double, double, double> GetProfile()
         {
             var totalStudents = Students.Count();
             var gradeCount = GetStatistics().Item4;
