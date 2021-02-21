@@ -16,8 +16,10 @@ namespace ConsoleAppProject.App03
 
         public int StudentID { get; set; }
         [Required, StringLength(20), Display(Name = "First Name")]
+        [RegularExpression(@"[a-zA-Z]+", ErrorMessage = "Only letter type characters are allowed.")]
         public string FirstName { get; set; }
         [Required, StringLength(20), Display(Name = "Last Name")]
+        [RegularExpression(@"[a-zA-Z]+", ErrorMessage = "Only letter type characters are allowed.")]
         public string LastName { get; set; }
         [Range(0, 100)]
         public int Mark { get; set; }
