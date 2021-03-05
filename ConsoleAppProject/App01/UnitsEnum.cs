@@ -5,6 +5,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ConsoleAppProject.App01
 {
+    /// <summary>
+    /// Enumeration of distance units that the app can convert.
+    /// </summary>
     public enum UnitsEnum
     {
         [Display(Name = "Meter")]
