@@ -7,6 +7,9 @@ using System.Text;
 
 namespace ConsoleAppProject.App02
 {
+    /// <summary>
+    /// This enumeration will provide information about each category.
+    /// </summary>
     public enum Categories
     {
         [Description("\t\tThis is not a good sign, no matter what ethnic group or age group you are part of. \n" +
