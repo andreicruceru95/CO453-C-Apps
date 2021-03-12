@@ -5,6 +5,9 @@ using System.Text;
 
 namespace ConsoleAppProject.App03
 {
+    /// <summary>
+    /// This class will save and load data from binary file.  
+    /// </summary>
     public static class Streamer
     {
         public static string SerializationFile = Path.Combine(@"C:\Users\andre\source\repos\andreicruceru95\CO453-C-Apps\ConsoleAppProject\App03", "Student.bin");

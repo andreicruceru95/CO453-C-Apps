@@ -4,6 +4,7 @@ using System.ComponentModel;
 namespace ConsoleAppProject.App03
 {
     /// <summary>
+    /// This Enumeration will provide the grades for our student app
     /// Grade A is First Class   : 70 - 100
     /// Grade B is Upper Second  : 60 - 69
     /// Grade C is Lower Second  : 50 - 59

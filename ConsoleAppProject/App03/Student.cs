@@ -6,6 +6,11 @@ using System.Text;
 
 namespace ConsoleAppProject.App03
 {
+    /// <summary>
+    /// The student class is a blueprint representing a real life student.
+    /// Each student has names, unique id's and can be awarded marks.
+    /// The grades are calculated based on marks.
+    /// </summary>
     [Serializable]
     public class Student
     {
@@ -25,11 +30,19 @@ namespace ConsoleAppProject.App03
         public int Mark { get; set; }
         public Grades Grade { get; set; }
 
+        /// <summary>
+        /// Concatenate first and last name to create a full name.
+        /// </summary>
+        /// <returns>Full name</returns>
         public string FullName()
         {
             return $"{FirstName} {LastName}";
         }
 
+        /// <summary>
+        /// Calculate and return the grade based on the awarded mark.
+        /// </summary>
+        /// <returns>grade</returns>
         public Grades CalculateGrade()
         {
             if (Mark < D_MIN)

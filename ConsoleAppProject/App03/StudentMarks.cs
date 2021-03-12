@@ -6,9 +6,14 @@ using System.Text;
 
 namespace ConsoleAppProject.App03
 {
+    /// <summary>
+    /// This class manages the student data. It allows a user to create a new student, award marks and 
+    /// see statistics about students. The student data is saved and retrieved from external file.
+    /// </summary>
     public class StudentMarks
     {
         private List<Student> Students = Streamer.ReadFile();
+        //list of user choices
         private string[] Choices = new string[]
         {
             "Add new Student",
@@ -24,11 +29,10 @@ namespace ConsoleAppProject.App03
         /// </summary>
         public void Run()
         {
-            //Students = Streamer.ReadFile();
-
             var finished = false;
             while (!finished)
             {
+                //display a list of choices and run the user's choice.
                 switch (ConsoleHelper.SelectChoice("Please select an action", Choices))
                 {
                     case 1:
@@ -44,34 +48,48 @@ namespace ConsoleAppProject.App03
                         break;
 
                     case 4:
-                        Student StudentMin = GetStatistics().Item1;
-                        Student StudentMax = GetStatistics().Item2;
-                        int MediumMark = GetStatistics().Item3;
-
-                        Console.WriteLine($"\n\tThe lowest mark is {StudentMin.Mark} and it belongs to :\n\t{StudentMin.StudentID} {StudentMin.FullName()}");
-                        Console.WriteLine($"\n\tThe highest mark is {StudentMax.Mark} and it belongs to :\n\t{StudentMax.StudentID} {StudentMax.FullName()}");
-                        Console.WriteLine($"\n\tThe medium mark is {MediumMark}");
-
-                        StudentMin.Mark = MediumMark;
-
-                        Console.WriteLine($"\n\tThe medium grade is {StudentMin.CalculateGrade()}");
+                        PrintStatistics();
                         break;
 
                     case 5:
-                        Console.WriteLine($"\n\t{GetProfile().Item1}% students have achieved a 1 class grade.");
-                        Console.WriteLine($"\n\t{GetProfile().Item2}% students have achieved a 2,1 class grade.");
-                        Console.WriteLine($"\n\t{GetProfile().Item3}% students have achieved a 2,2 class grade.");
-                        Console.WriteLine($"\n\t{GetProfile().Item4}% students have achieved a 3 class grade.");
-                        Console.WriteLine($"\n\t{GetProfile().Item5}% students have failled.");
-
+                        PrintGradeProfile();
                         break;
 
-                    case 6:
+                    case 6://Save changes and exit
                         Streamer.SaveFile(Students);
                         finished = true;
                         break;
                 }
             }
+        }
+        /// <summary>
+        /// Print the student grade profile.
+        /// </summary>
+        private void PrintGradeProfile()
+        {
+            Console.WriteLine($"\n\t{GetGradeProfile().Item1}% students have achieved a 1 class grade.");
+            Console.WriteLine($"\n\t{GetGradeProfile().Item2}% students have achieved a 2,1 class grade.");
+            Console.WriteLine($"\n\t{GetGradeProfile().Item3}% students have achieved a 2,2 class grade.");
+            Console.WriteLine($"\n\t{GetGradeProfile().Item4}% students have achieved a 3 class grade.");
+            Console.WriteLine($"\n\t{GetGradeProfile().Item5}% students have failled.");
+        }
+        /// <summary>
+        /// Analyse student data.
+        /// </summary>
+        private void PrintStatistics()
+        {
+            Student BestStudent, WorstStudent;
+            int AverageMark = GetStatistics().Item1;
+            GetMinMax(out BestStudent, out WorstStudent);
+
+            Console.WriteLine($"\n\tThe lowest mark is {BestStudent.Mark} and it belongs to :\n\t{BestStudent.StudentID} {BestStudent.FullName()}");
+            Console.WriteLine($"\n\tThe highest mark is {WorstStudent.Mark} and it belongs to :\n\t{WorstStudent.StudentID} {WorstStudent.FullName()}");
+            Console.WriteLine($"\n\tThe medium mark is {AverageMark}");
+
+            //pass the avg mark to a student to calculate the grade without creating a convert method
+            BestStudent.Mark = AverageMark;
+
+            Console.WriteLine($"\n\tThe medium grade is {BestStudent.CalculateGrade()}");
         }
 
         /// <summary>
@@ -126,6 +144,7 @@ namespace ConsoleAppProject.App03
 
         /// <summary>
         /// Award mark to a student.
+        /// Validate that student exists.
         /// </summary>
         public void AwardMark()
         {
@@ -172,12 +191,9 @@ namespace ConsoleAppProject.App03
         /// Find the students with the lowest and highest mark and calculate the mean.
         /// </summary>
         /// <returns>The students with the lowest and highest mark.</returns>
-        public Tuple<Student,Student, int, Tuple<int, int, int, int, int>> GetStatistics()
+        public Tuple<int, Tuple<int, int, int, int, int>> GetStatistics()
         {
-            var MediumMark = 0;            
-            Student StudentMin = new Student();
-            StudentMin.Mark = 100;
-            Student StudentMax = new Student();
+            var MediumMark = 0;
             int first = 0;
             int second = 0;
             int secondII = 0;
@@ -196,30 +212,40 @@ namespace ConsoleAppProject.App03
                 else if (student.Mark > 40)
                     third++;
                 else
-                    failled++;
-
-                if (student.Mark < StudentMin.Mark)
-                    StudentMin = student;
-                if(student.Mark > StudentMax.Mark)
-                    StudentMax = student;
-            }
-            MediumMark = Convert.ToInt32(MediumMark / Students.Count());
+                    failled++;                
+            }            
+            MediumMark = Convert.ToInt32(MediumMark / Students.Count());            
             
-            return Tuple.Create(StudentMin,StudentMax, MediumMark, Tuple.Create(first, second, secondII, third, failled));
+            return Tuple.Create(MediumMark, Tuple.Create(first, second, secondII, third, failled));
+        }
+        /// <summary>
+        /// assign the students with the best and worst grades.
+        /// </summary>
+        /// <param name="StudentMin">lowest grade student</param>
+        /// <param name="StudentMax">highest grade student</param>
+        public void GetMinMax(out Student StudentMin, out Student StudentMax)
+        {
+            var StudentsSorted = Students.OrderBy(S => S.Mark).ToList();            
+
+            StudentMin = StudentsSorted[0];
+            StudentMax = StudentsSorted.Last<Student>();
         }
         /// <summary>
         /// return the percentage of students for each grade category.
         /// </summary>
         /// <returns>the percentages for each grade.</returns>
-        public Tuple<double, double, double, double, double> GetProfile()
+        public Tuple<double, double, double, double, double> GetGradeProfile()
         {
+            const int MAX = 100;
+
             var totalStudents = Students.Count();
-            var gradeCount = GetStatistics().Item4;
-            double first = Math.Round(Convert.ToDouble(gradeCount.Item1  * 100 / totalStudents), 2);
-            double second = Math.Round(Convert.ToDouble(gradeCount.Item2 * 100 / totalStudents), 2);
-            double secondII = Math.Round(Convert.ToDouble(gradeCount.Item3 * 100 / totalStudents), 2);
-            double third = Math.Round(Convert.ToDouble(gradeCount.Item4 * 100 / totalStudents), 2);
-            double failled = Math.Round(Convert.ToDouble(gradeCount.Item5 * 100 / totalStudents), 2);
+            var gradeCount = GetStatistics().Item2;
+
+            double first = Math.Round(Convert.ToDouble(gradeCount.Item1  * MAX / totalStudents), 1);
+            double second = Math.Round(Convert.ToDouble(gradeCount.Item2 * MAX / totalStudents), 1);
+            double secondII = Math.Round(Convert.ToDouble(gradeCount.Item3 * MAX / totalStudents), 1);
+            double third = Math.Round(Convert.ToDouble(gradeCount.Item4 * MAX / totalStudents), 1);
+            double failled = Math.Round(Convert.ToDouble(gradeCount.Item5 * MAX / totalStudents), 1);
 
             return Tuple.Create(first, second, secondII, third, failled);
         }

@@ -4,10 +4,14 @@ using System.Text;
 
 namespace ConsoleAppProject
 {
+    /// <summary>
+    /// This class will provide and validate any user input required across the 
+    /// ConsoleApps project.
+    /// </summary>
     public static class ConsoleHelper
     {
         /// <summary>
-        ///  Print a text on the screen
+        ///  Print a message or App title on the screen.
         /// </summary>
         /// <param name="text">string input</param>
         /// <param name="title">type of text</param>
@@ -17,7 +21,7 @@ namespace ConsoleAppProject
             {
                 Console.WriteLine("\t\t--------------------------------------\n");
                 Console.WriteLine($"\t\t\t{text}\n");
-                Console.WriteLine("\t\t\t   App by Andrei Cruceru              \n");
+                Console.WriteLine("\t\t\tApp by Andrei Cruceru              \n");
                 Console.WriteLine("\t\t--------------------------------------\n");
             }
             else
@@ -96,11 +100,16 @@ namespace ConsoleAppProject
             }
         }
 
+        /// <summary>
+        /// Read a string input from the user. The input cannot be null.
+        /// </summary>
+        /// <param name="message">Message passed to user</param>
+        /// <returns>string input</returns>
         public static string InputString(string message)
         {
             Console.WriteLine($"\n\t{message}");
-
             string input = Console.ReadLine();
+
             if (!(string.IsNullOrWhiteSpace(input)))
                 return input;
 
