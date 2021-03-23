@@ -26,9 +26,48 @@ namespace WebUI.Controllers
             return View(await _context.Students.ToListAsync());
         }
 
-        public async Task<IActionResult> Statistics()
+        //public async Task<IActionResult> Statistics()
+        //{   
+        //    return View(await _context.Students.ToListAsync());
+        //}
+        public ActionResult Statistics()
         {
-            return View(await _context.Students.ToListAsync());
+            Dictionary<string, double> statistics = new Dictionary<string, double>();
+            int totalMark = 0;
+            int first = 0;
+            int second = 0;
+            int secondII = 0;
+            int third = 0;
+            int failled = 0;
+
+            foreach (var student in _context.Students)
+            {
+                int mark = student.Mark;
+
+                totalMark += mark;
+
+                if (mark < 40)
+                    failled++;
+                else if (mark < 49)
+                    third++;
+                else if (mark < 59)
+                    secondII++;
+                else if (mark < 69)
+                    second++;
+                else
+                    first++;
+            }
+            totalMark = totalMark / _context.Students.Count<Student>();
+
+            statistics.Add("number of students", _context.Students.Count<Student>());
+            statistics.Add("avg Mark", totalMark);
+            statistics.Add("first grade", first);
+            statistics.Add("upper second grade", second);
+            statistics.Add("lower second grade", secondII);
+            statistics.Add("third grade", third);
+            statistics.Add("failled grade", failled);
+
+            return View(statistics);
         }
 
         // GET: Students/Details/5

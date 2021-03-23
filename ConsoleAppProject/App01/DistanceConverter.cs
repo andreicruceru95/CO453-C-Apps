@@ -23,6 +23,7 @@ namespace ConsoleAppProject.App01
     {
         public const int NUMBER_OF_DECIMALS = 3;
         public Dictionary<UnitsEnum, double> Values = new Dictionary<UnitsEnum, double>();
+
         public string[] Units = new string[]
         {
             EnumHelper<UnitsEnum>.GetName(UnitsEnum.FEET),
