@@ -33,17 +33,27 @@ namespace WebUI.Controllers
         public ActionResult Statistics()
         {
             Dictionary<string, double> statistics = new Dictionary<string, double>();
-            int totalMark = 0;
-            int first = 0;
-            int second = 0;
-            int secondII = 0;
-            int third = 0;
-            int failled = 0;
+            int totalMark, first, second, secondII, third, failled;
+            totalMark = first = second = secondII = third = failled = 0;
 
+            CalculateData(ref totalMark, ref first, ref second, ref secondII, ref third, ref failled);
+
+            statistics.Add("number of students", _context.Students.Count<Student>());
+            statistics.Add("avg Mark", totalMark);
+            statistics.Add("first grade", first);
+            statistics.Add("upper second grade", second);
+            statistics.Add("lower second grade", secondII);
+            statistics.Add("third grade", third);
+            statistics.Add("failled grade", failled);
+
+            return View(statistics);
+        }
+
+        private void CalculateData(ref int totalMark, ref int first, ref int second, ref int secondII, ref int third, ref int failled)
+        {
             foreach (var student in _context.Students)
             {
                 int mark = student.Mark;
-
                 totalMark += mark;
 
                 if (mark < 40)
@@ -58,16 +68,6 @@ namespace WebUI.Controllers
                     first++;
             }
             totalMark = totalMark / _context.Students.Count<Student>();
-
-            statistics.Add("number of students", _context.Students.Count<Student>());
-            statistics.Add("avg Mark", totalMark);
-            statistics.Add("first grade", first);
-            statistics.Add("upper second grade", second);
-            statistics.Add("lower second grade", secondII);
-            statistics.Add("third grade", third);
-            statistics.Add("failled grade", failled);
-
-            return View(statistics);
         }
 
         // GET: Students/Details/5
