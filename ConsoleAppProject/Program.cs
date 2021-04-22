@@ -1,6 +1,8 @@
 using ConsoleAppProject.App01;
 using ConsoleAppProject.App02;
 using ConsoleAppProject.App03;
+using ConsoleAppProject.App04;
+using ConsoleAppProject.App04.Social_Network;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -28,12 +30,13 @@ namespace ConsoleAppProject
             "Distance Convertor",
             "BMI Calculator",
             "Student Grades",
+            "Not Facebook",
             "Exit"
         };
 
         public static void Main(string[] args)
         {
-            ConsoleHelper.PrintText("BNU CO453 Applications Programming", true);
+            ConsoleHelper.PrintString("BNU CO453 Applications Programming", true);
 
             try
             {
@@ -50,7 +53,7 @@ namespace ConsoleAppProject
             switch (AppNumber)
             {
                 case APP01:
-                    ConsoleHelper.PrintText("Distance Converter", true);
+                    ConsoleHelper.PrintString("Distance Converter", true);
 
                     //Create an object
                     DistanceConverter converter = new DistanceConverter();
@@ -59,18 +62,22 @@ namespace ConsoleAppProject
                     break;
 
                 case APP02:
-                    ConsoleHelper.PrintText("BMI Converter", true);
-                    ConsoleHelper.PrintText(bmi.GetDescription(), false);
+                    ConsoleHelper.PrintString("BMI Converter", true);
+                    ConsoleHelper.PrintString(bmi.GetDescription(), false);
                     bmi.RunBmiConverter();
                     break;
 
                 case APP03:
-                    ConsoleHelper.PrintText("Student Marks", true);
+                    ConsoleHelper.PrintString("Student Marks", true);
                     StudentMarks students = new StudentMarks();
                     students.Run();
                     break;
 
                 case APP04:
+                    SocialNetwork social = new SocialNetwork();
+                    social.Run();
+
+                    break;
 
                 case APP05:
 

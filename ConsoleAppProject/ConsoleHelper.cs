@@ -6,7 +6,7 @@ namespace ConsoleAppProject
 {
     /// <summary>
     /// This class will provide and validate any user input required across the 
-    /// ConsoleApps project.
+    /// ConsoleApp project.
     /// </summary>
     public static class ConsoleHelper
     {
@@ -15,7 +15,7 @@ namespace ConsoleAppProject
         /// </summary>
         /// <param name="text">string input</param>
         /// <param name="title">type of text</param>
-        public static void PrintText(string text, bool isTitle)
+        public static void PrintString(string text, bool isTitle)
         {
             if(isTitle)
             {
@@ -38,10 +38,10 @@ namespace ConsoleAppProject
         /// <returns>the user's choice number</returns>
         public static int SelectChoice(string message,string[] choices)
         {
-            Console.WriteLine($"\n\t{message}");
+            Console.WriteLine($"\n\t{message}\n");
             ListChoices(choices);
 
-            return (int)(InputNumber("Please enter your choice number >", 1, choices.Length));
+            return (int)(InputNumber("\n\tPlease enter your choice number >", 1, choices.Length));
         }
 
         /// <summary>
@@ -118,6 +118,41 @@ namespace ConsoleAppProject
                 Console.WriteLine("\n\tCannot leave empty!\n");
                 return InputString(message);
             }
+        }
+
+        /// <summary>
+        /// Print a string message on console with a given indentation level.
+        /// </summary>
+        /// <param name="layer"></param>
+        /// <param name="message"></param>
+        public static void PrintString(IndentLevel layer, string message)
+        {
+            string indentation = TranslateLayer(layer);
+
+            Console.WriteLine($"{indentation}{message}");
+        }
+
+        /// <summary>
+        /// Translate a layer enum type to an indentation level.
+        /// </summary>
+        /// <param name="layer"></param>
+        /// <returns></returns>
+        private static string TranslateLayer(IndentLevel layer)
+        {
+            switch(layer)
+            {
+                case IndentLevel.Level1:
+                    return "\t";
+                case IndentLevel.Level2:
+                    return "\t\t";
+                case IndentLevel.Level3:
+                    return "\t\t\t";
+                case IndentLevel.Level4:
+                    return "\t\t\t\t";
+                case IndentLevel.Level5:
+                    return "\t\t\t\t\t";
+            }
+            return string.Empty;
         }
     }
 }
