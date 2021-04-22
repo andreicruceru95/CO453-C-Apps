@@ -35,7 +35,7 @@ namespace ConsoleAppProject.App04.Social_Network
 
             if (CurrentUser == null)
             {
-                ConsoleHelper.PrintString(IndentLevel.Level1,"Username or password do not match our records.");                
+                Run();
             }
             RefreshPosts();
 

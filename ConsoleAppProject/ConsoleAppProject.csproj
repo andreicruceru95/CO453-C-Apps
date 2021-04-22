@@ -10,4 +10,8 @@
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="App04\Documentation\" />
+  </ItemGroup>
+
 </Project>
