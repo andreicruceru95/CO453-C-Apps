@@ -23,6 +23,7 @@ namespace ConsoleAppProject.App04
         private string[] generalOptions = new string[]
         {
             "See Your Posts",
+            "See Other User's Posts",
             "See All Posts",            
             "Share Image",
             "Share your thoughts",

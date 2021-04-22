@@ -58,7 +58,7 @@ namespace ConsoleAppProject.App04.Social_Network
 
                 var choice = ChoiceList.Instance.GetOptionList("Please select an action from bellow!", "general");
 
-                if (choice == 10) finished = true;
+                if (choice == 9) finished = true;
 
                 else ReturnGeneralOptions(choice);
             }
@@ -95,8 +95,36 @@ namespace ConsoleAppProject.App04.Social_Network
                     break;
                 #endregion
 
-                #region See total posts for all users
+                #region See Other Users Posts
                 case 2:
+                    string username = ConsoleHelper.InputString("\tPlease enter username!\n");
+
+                    User user = FindUser(username);
+                    if (user != null)
+                    {
+                        var userPosts = user.GetPosts();
+
+                        if (userPosts.Count == 0)
+                        {
+                            ConsoleHelper.PrintString(IndentLevel.Level2, $"{user.Username} has no posts!");
+                            break;
+                        }
+                        var totalPosts = new List<Post>();
+
+                        foreach (var p in userPosts)
+                            totalPosts.Add(p as Post);
+
+                        totalPosts.OrderByDescending(p => p.Timestamp).ToList();
+
+                        foreach (Post p in totalPosts)
+                            p.Print();
+                    }
+                    break;
+
+                #endregion
+
+                #region See total posts for all users
+                case 3:
                     foreach (var p in totalPosts)
                     {
                         ConsoleHelper.PrintString(IndentLevel.Level2, $"\n\n\t\tPost ID: {p.Key}");
@@ -106,7 +134,7 @@ namespace ConsoleAppProject.App04.Social_Network
                 #endregion
 
                 #region Create Image Post
-                case 3:
+                case 4:
                     reaction = GetReaction(ChoiceList.Instance.GetOptionList("\tHow are you feeling?", "reaction"));
                     var caption = ConsoleHelper.InputString("\tAdd caption to your image:\n");
 
@@ -118,7 +146,7 @@ namespace ConsoleAppProject.App04.Social_Network
                 #endregion
 
                 #region Create message post
-                case 4:
+                case 5:
                     reaction = GetReaction(ChoiceList.Instance.GetOptionList("\tHow are you feeling?", "reaction"));
                     string message = ConsoleHelper.InputString("\tPlease enter message:\n");
 
@@ -130,7 +158,7 @@ namespace ConsoleAppProject.App04.Social_Network
                 #endregion
 
                 #region Enter post menu
-                case 5:
+                case 6:
                     var postID = ConsoleHelper.InputNumber("\tPlease enter Post ID:\n", 0, totalPosts.Count);
                     Post post = GetPostByID((int)postID);
 
@@ -140,13 +168,13 @@ namespace ConsoleAppProject.App04.Social_Network
                 #endregion
 
                 #region Social
-                case 6:
+                case 7:
                     RunSocialOptions();
                     break;
                 #endregion
 
                 #region LogOut
-                case 7:
+                case 8:
                     CurrentUser = null;
                     Run();
                     break;
